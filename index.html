@@ -1,309 +1,288 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Валерий Печейкин</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Валерий Печейкин</title>
+  <style>
+    :root{
+      --bg:#f4f0e8;
+      --ink:#101010;
+      --muted:#6b665f;
+      --line:#111;
+      --accent:#d94b35;
+    }
 
-<style>
-html, body {
-  margin: 0;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  background: #f8f5ef;
-  color: #111;
-  font-family: Arial, Helvetica, sans-serif;
-}
+    *{box-sizing:border-box}
 
-canvas {
-  position: fixed;
-  inset: 0;
-  z-index: 1;
-}
+    html,body{
+      margin:0;
+      background:var(--bg);
+      color:var(--ink);
+      font-family: Arial, Helvetica, sans-serif;
+    }
 
-.title {
-  position: fixed;
-  left: 52px;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 2;
-  font-size: clamp(42px, 6vw, 92px);
-  line-height: 0.95;
-  letter-spacing: 0.16em;
-  font-weight: 400;
-  pointer-events: none;
-}
+    body{
+      min-height:100vh;
+    }
 
-.subtitle {
-  margin-top: 34px;
-  font-size: 14px;
-  letter-spacing: 0.28em;
-  color: #555;
-  text-transform: uppercase;
-}
+    .page{
+      min-height:100vh;
+      padding:34px;
+      display:grid;
+      grid-template-columns: 1.15fr 1fr;
+      gap:34px;
+    }
 
-.menu {
-  position: fixed;
-  right: 68px;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 2;
-  display: grid;
-  gap: 26px;
-  font-size: 17px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-}
+    .poster{
+      border:2px solid var(--line);
+      min-height:calc(100vh - 68px);
+      padding:34px;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      position:sticky;
+      top:34px;
+      overflow:hidden;
+    }
 
-.menu div {
-  border-bottom: 1px solid #999;
-  padding-bottom: 12px;
-}
+    .poster::before{
+      content:"";
+      position:absolute;
+      width:38vw;
+      height:38vw;
+      border:2px solid var(--line);
+      border-radius:50%;
+      right:-14vw;
+      top:12vh;
+      opacity:.95;
+    }
 
-.hint {
-  position: fixed;
-  left: 52px;
-  bottom: 36px;
-  z-index: 2;
-  font-size: 12px;
-  letter-spacing: 0.25em;
-  color: #777;
-  text-transform: uppercase;
-}
+    .poster::after{
+      content:"";
+      position:absolute;
+      width:16vw;
+      height:16vw;
+      background:var(--ink);
+      border-radius:50%;
+      right:9vw;
+      top:25vh;
+      mix-blend-mode:multiply;
+    }
 
-@media (max-width: 800px) {
-  .title {
-    left: 28px;
-    top: 22%;
-    font-size: 42px;
-  }
+    .small{
+      font-size:13px;
+      line-height:1.35;
+      letter-spacing:.22em;
+      text-transform:uppercase;
+      color:var(--muted);
+      position:relative;
+      z-index:2;
+    }
 
-  .menu {
-    right: 28px;
-    bottom: 32px;
-    top: auto;
-    transform: none;
-    font-size: 14px;
-    gap: 16px;
-  }
+    h1{
+      position:relative;
+      z-index:2;
+      margin:0;
+      font-size:clamp(54px, 8.2vw, 132px);
+      line-height:.82;
+      font-weight:400;
+      letter-spacing:-.055em;
+      text-transform:uppercase;
+    }
 
-  .hint {
-    display: none;
-  }
-}
-</style>
+    .roles{
+      position:relative;
+      z-index:2;
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      border-top:2px solid var(--line);
+      margin-top:34px;
+    }
+
+    .roles div{
+      padding:14px 12px 0 0;
+      font-size:16px;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+    }
+
+    .content{
+      display:flex;
+      flex-direction:column;
+      gap:18px;
+    }
+
+    .block{
+      border:2px solid var(--line);
+      padding:24px;
+      background:rgba(244,240,232,.7);
+    }
+
+    .lead{
+      font-size:clamp(28px, 3.4vw, 52px);
+      line-height:.98;
+      letter-spacing:-.045em;
+      margin:0;
+    }
+
+    .section-title{
+      display:flex;
+      justify-content:space-between;
+      align-items:baseline;
+      gap:20px;
+      border-bottom:2px solid var(--line);
+      padding-bottom:12px;
+      margin-bottom:16px;
+      text-transform:uppercase;
+      letter-spacing:.18em;
+      font-size:13px;
+      color:var(--muted);
+    }
+
+    .items{
+      display:grid;
+      gap:0;
+    }
+
+    .item{
+      display:grid;
+      grid-template-columns: 92px 1fr;
+      gap:18px;
+      padding:16px 0;
+      border-bottom:1px solid rgba(0,0,0,.35);
+    }
+
+    .item:last-child{border-bottom:none}
+
+    .num{
+      color:var(--accent);
+      font-size:13px;
+      letter-spacing:.18em;
+    }
+
+    .item h3{
+      margin:0 0 7px 0;
+      font-size:25px;
+      line-height:1;
+      letter-spacing:-.035em;
+      font-weight:400;
+    }
+
+    .item p{
+      margin:0;
+      color:var(--muted);
+      font-size:15px;
+      line-height:1.35;
+    }
+
+    .contact{
+      display:grid;
+      grid-template-columns:1fr auto;
+      gap:20px;
+      align-items:end;
+    }
+
+    a{
+      color:var(--ink);
+      text-decoration:none;
+      border-bottom:1px solid var(--ink);
+    }
+
+    .stamp{
+      width:112px;
+      height:112px;
+      border:2px solid var(--line);
+      border-radius:50%;
+      display:grid;
+      place-items:center;
+      text-align:center;
+      font-size:11px;
+      line-height:1.2;
+      letter-spacing:.15em;
+      text-transform:uppercase;
+      transform:rotate(-10deg);
+    }
+
+    @media(max-width:900px){
+      .page{grid-template-columns:1fr; padding:18px; gap:18px;}
+      .poster{position:relative; top:0; min-height:72vh; padding:24px;}
+      .poster::before{width:72vw;height:72vw;right:-30vw;}
+      .poster::after{width:28vw;height:28vw;right:12vw;}
+      .roles{grid-template-columns:1fr; gap:6px;}
+      .item{grid-template-columns:1fr; gap:6px;}
+      .contact{grid-template-columns:1fr;}
+    }
+  </style>
 </head>
-
 <body>
+  <main class="page">
+    <section class="poster">
+      <div class="small">личный архив / one-page site</div>
 
-<div class="title">
-  ВАЛЕРИЙ<br>
-  ПЕЧЕЙКИН
-  <div class="subtitle">писатель · драматург · лектор</div>
-</div>
+      <div>
+        <h1>Валерий<br>Печейкин</h1>
+        <div class="roles">
+          <div>писатель</div>
+          <div>драматург</div>
+          <div>лектор</div>
+        </div>
+      </div>
 
-<div class="menu">
-  <div>01 лекции</div>
-  <div>02 тексты</div>
-  <div>03 театр</div>
-  <div>04 контакты</div>
-</div>
+      <div class="small">Москва · театр · музыка · культура · абсурд</div>
+    </section>
 
-<div class="hint">кот бегает по архиву</div>
+    <section class="content">
+      <div class="block">
+        <p class="lead">Пишу и рассказываю истории о том, как культура превращает обычные вещи в мифы, страхи, ритуалы и смешные человеческие жесты.</p>
+      </div>
 
-<canvas id="catCanvas"></canvas>
+      <div class="block">
+        <div class="section-title"><span>архив</span><span>01</span></div>
+        <div class="items">
+          <article class="item">
+            <div class="num">ЛЕКЦИЯ</div>
+            <div><h3>Смешная любовь</h3><p>Признания, которые были осмеяны, непоняты или превратились в искусство.</p></div>
+          </article>
+          <article class="item">
+            <div class="num">ЛЕКЦИЯ</div>
+            <div><h3>С хлебом не играют</h3><p>Хлеб как символ, индустрия, зрелище и культурный код.</p></div>
+          </article>
+          <article class="item">
+            <div class="num">МУЗЫКА</div>
+            <div><h3>Густав Малер</h3><p>Композитор как современный миф: голос, память, катастрофа, нежность.</p></div>
+          </article>
+          <article class="item">
+            <div class="num">РОМАН</div>
+            <div><h3>Бог кошек</h3><p>Кафкианская история о коте, суде, любви и превращениях.</p></div>
+          </article>
+        </div>
+      </div>
 
-<script>
-const canvas = document.getElementById("catCanvas");
-const ctx = canvas.getContext("2d");
+      <div class="block">
+        <div class="section-title"><span>работа</span><span>02</span></div>
+        <div class="items">
+          <article class="item">
+            <div class="num">ТЕАТР</div>
+            <div><h3>Театральные тексты</h3><p>Пьесы, либретто, драматургия проектов, сценические концепции.</p></div>
+          </article>
+          <article class="item">
+            <div class="num">ЛЕКЦИИ</div>
+            <div><h3>Публичные выступления</h3><p>Культура, музыка, искусство, технологии и странная логика повседневности.</p></div>
+          </article>
+        </div>
+      </div>
 
-let w, h, dpr;
-
-function resize() {
-  dpr = Math.min(window.devicePixelRatio || 1, 2);
-  w = window.innerWidth;
-  h = window.innerHeight;
-
-  canvas.width = w * dpr;
-  canvas.height = h * dpr;
-
-  canvas.style.width = w + "px";
-  canvas.style.height = h + "px";
-
-  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-}
-
-resize();
-window.addEventListener("resize", resize);
-
-const cat = {
-  x: 180,
-  y: window.innerHeight * 0.72,
-  vx: 2.4,
-  baseY: window.innerHeight * 0.72,
-  size: 1,
-  direction: 1,
-  phase: 0,
-  mood: 0
-};
-
-let mouse = { x: -9999, y: -9999 };
-
-window.addEventListener("mousemove", e => {
-  mouse.x = e.clientX;
-  mouse.y = e.clientY;
-});
-
-function drawCat(x, y, s, dir, phase) {
-  ctx.save();
-
-  ctx.translate(x, y);
-  ctx.scale(dir * s, s);
-
-  ctx.fillStyle = "#111";
-  ctx.strokeStyle = "#111";
-  ctx.lineWidth = 4;
-  ctx.lineCap = "round";
-  ctx.lineJoin = "round";
-
-  // хвост
-  ctx.save();
-  ctx.translate(-64, -22);
-  ctx.rotate(Math.sin(phase * 0.9) * 0.18);
-  ctx.beginPath();
-  ctx.moveTo(0, 0);
-  ctx.bezierCurveTo(-42, -38, -74, -16, -66, 18);
-  ctx.bezierCurveTo(-60, 42, -22, 34, -34, 8);
-  ctx.stroke();
-  ctx.restore();
-
-  // тело
-  ctx.beginPath();
-  ctx.ellipse(0, 0, 64, 34, -0.05, 0, Math.PI * 2);
-  ctx.fill();
-
-  // голова
-  ctx.beginPath();
-  ctx.ellipse(62, -28, 28, 24, 0.1, 0, Math.PI * 2);
-  ctx.fill();
-
-  // уши
-  ctx.beginPath();
-  ctx.moveTo(43, -45);
-  ctx.lineTo(49, -76);
-  ctx.lineTo(63, -48);
-  ctx.closePath();
-  ctx.fill();
-
-  ctx.beginPath();
-  ctx.moveTo(67, -49);
-  ctx.lineTo(83, -73);
-  ctx.lineTo(82, -41);
-  ctx.closePath();
-  ctx.fill();
-
-  // лапы
-  const a = Math.sin(phase);
-  const b = Math.sin(phase + Math.PI);
-
-  drawLeg(-34, 24, a);
-  drawLeg(-6, 25, b);
-  drawLeg(28, 24, b);
-  drawLeg(52, 19, a);
-
-  // глаз
-  ctx.fillStyle = "#f8f5ef";
-  ctx.beginPath();
-  ctx.arc(72, -33, 3.2, 0, Math.PI * 2);
-  ctx.fill();
-
-  // усики
-  ctx.strokeStyle = "#111";
-  ctx.lineWidth = 1.4;
-
-  ctx.beginPath();
-  ctx.moveTo(84, -28);
-  ctx.lineTo(114, -36);
-  ctx.moveTo(84, -24);
-  ctx.lineTo(116, -24);
-  ctx.moveTo(84, -20);
-  ctx.lineTo(112, -12);
-  ctx.stroke();
-
-  ctx.restore();
-}
-
-function drawLeg(x, y, motion) {
-  ctx.save();
-  ctx.translate(x, y);
-  ctx.rotate(motion * 0.35);
-
-  ctx.beginPath();
-  ctx.moveTo(0, 0);
-  ctx.lineTo(-4, 30);
-  ctx.lineTo(14, 30);
-  ctx.lineTo(10, 2);
-  ctx.closePath();
-  ctx.fill();
-
-  ctx.restore();
-}
-
-function drawShadow(x, y, s) {
-  ctx.save();
-  ctx.fillStyle = "rgba(0,0,0,0.08)";
-  ctx.beginPath();
-  ctx.ellipse(x, y + 39 * s, 78 * s, 9 * s, 0, 0, Math.PI * 2);
-  ctx.fill();
-  ctx.restore();
-}
-
-function animate() {
-  requestAnimationFrame(animate);
-
-  ctx.clearRect(0, 0, w, h);
-
-  cat.phase += 0.16;
-  cat.x += cat.vx * cat.direction;
-
-  cat.baseY = h * 0.72;
-  cat.y = cat.baseY + Math.sin(cat.phase * 0.8) * 2.5;
-
-  const distanceToMouse = Math.hypot(mouse.x - cat.x, mouse.y - cat.y);
-
-  if (distanceToMouse < 130) {
-    cat.vx = 1.1;
-    cat.mood += (1 - cat.mood) * 0.06;
-  } else {
-    cat.vx += (2.4 - cat.vx) * 0.03;
-    cat.mood += (0 - cat.mood) * 0.04;
-  }
-
-  if (cat.x > w + 120) {
-    cat.direction = -1;
-  }
-
-  if (cat.x < -120) {
-    cat.direction = 1;
-  }
-
-  const scale = 1 + cat.mood * 0.08;
-
-  drawShadow(cat.x, cat.y, scale);
-  drawCat(cat.x, cat.y, scale, cat.direction, cat.phase);
-
-  // маленькая “архивная” точка — чтобы сцена была чуть страннее
-  ctx.save();
-  ctx.fillStyle = "#111";
-  ctx.beginPath();
-  ctx.arc(w / 2, h - 42, 3, 0, Math.PI * 2);
-  ctx.fill();
-  ctx.restore();
-}
-
-animate();
-</script>
-
+      <div class="block contact">
+        <div>
+          <div class="section-title"><span>контакты</span><span>03</span></div>
+          <p style="margin:0;font-size:22px;line-height:1.25;letter-spacing:-.02em;">
+            <a href="mailto:valeriy.pecheykin@gmail.com">valeriy.pecheykin@gmail.com</a>
+          </p>
+        </div>
+        <div class="stamp">archive<br>of<br>one</div>
+      </div>
+    </section>
+  </main>
 </body>
 </html>
