@@ -1,276 +1,309 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<title>VALERIY PECHEYKIN CAT</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Валерий Печейкин</title>
 
 <style>
-html,body{
-    margin:0;
-    width:100%;
-    height:100%;
-    overflow:hidden;
-    background:#f8f5f0;
+html, body {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #f8f5ef;
+  color: #111;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
-canvas{
-    display:block;
+canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+}
+
+.title {
+  position: fixed;
+  left: 52px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  font-size: clamp(42px, 6vw, 92px);
+  line-height: 0.95;
+  letter-spacing: 0.16em;
+  font-weight: 400;
+  pointer-events: none;
+}
+
+.subtitle {
+  margin-top: 34px;
+  font-size: 14px;
+  letter-spacing: 0.28em;
+  color: #555;
+  text-transform: uppercase;
+}
+
+.menu {
+  position: fixed;
+  right: 68px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  display: grid;
+  gap: 26px;
+  font-size: 17px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.menu div {
+  border-bottom: 1px solid #999;
+  padding-bottom: 12px;
+}
+
+.hint {
+  position: fixed;
+  left: 52px;
+  bottom: 36px;
+  z-index: 2;
+  font-size: 12px;
+  letter-spacing: 0.25em;
+  color: #777;
+  text-transform: uppercase;
+}
+
+@media (max-width: 800px) {
+  .title {
+    left: 28px;
+    top: 22%;
+    font-size: 42px;
+  }
+
+  .menu {
+    right: 28px;
+    bottom: 32px;
+    top: auto;
+    transform: none;
+    font-size: 14px;
+    gap: 16px;
+  }
+
+  .hint {
+    display: none;
+  }
 }
 </style>
 </head>
+
 <body>
 
-<script type="module">
+<div class="title">
+  ВАЛЕРИЙ<br>
+  ПЕЧЕЙКИН
+  <div class="subtitle">писатель · драматург · лектор</div>
+</div>
 
-import * as THREE from "https://unpkg.com/three@0.160.0/build/three.module.js";
+<div class="menu">
+  <div>01 лекции</div>
+  <div>02 тексты</div>
+  <div>03 театр</div>
+  <div>04 контакты</div>
+</div>
 
-const scene = new THREE.Scene();
+<div class="hint">кот бегает по архиву</div>
 
-const camera = new THREE.PerspectiveCamera(
-    40,
-    window.innerWidth/window.innerHeight,
-    0.1,
-    1000
-);
+<canvas id="catCanvas"></canvas>
 
-camera.position.z = 60;
+<script>
+const canvas = document.getElementById("catCanvas");
+const ctx = canvas.getContext("2d");
 
-const renderer = new THREE.WebGLRenderer({
-    antialias:true,
-    alpha:true
-});
+let w, h, dpr;
 
-renderer.setSize(
-    window.innerWidth,
-    window.innerHeight
-);
+function resize() {
+  dpr = Math.min(window.devicePixelRatio || 1, 2);
+  w = window.innerWidth;
+  h = window.innerHeight;
 
-renderer.setPixelRatio(
-    Math.min(window.devicePixelRatio,2)
-);
+  canvas.width = w * dpr;
+  canvas.height = h * dpr;
 
-document.body.appendChild(renderer.domElement);
+  canvas.style.width = w + "px";
+  canvas.style.height = h + "px";
 
-function createTextSprite(text){
-
-    const canvas = document.createElement("canvas");
-
-    canvas.width = 2048;
-    canvas.height = 512;
-
-    const ctx = canvas.getContext("2d");
-
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-
-    ctx.fillStyle="#111";
-
-    ctx.font="700 180px Arial";
-
-    ctx.textAlign="center";
-    ctx.textBaseline="middle";
-
-    ctx.fillText(
-        text,
-        canvas.width/2,
-        canvas.height/2
-    );
-
-    const texture =
-        new THREE.CanvasTexture(canvas);
-
-    texture.needsUpdate=true;
-
-    const material =
-        new THREE.SpriteMaterial({
-            map:texture,
-            transparent:true
-        });
-
-    const sprite =
-        new THREE.Sprite(material);
-
-    return sprite;
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 }
 
-const body =
-    createTextSprite("ПЕЧЕЙКИН");
+resize();
+window.addEventListener("resize", resize);
 
-body.scale.set(
-    38,
-    9,
-    1
-);
+const cat = {
+  x: 180,
+  y: window.innerHeight * 0.72,
+  vx: 2.4,
+  baseY: window.innerHeight * 0.72,
+  size: 1,
+  direction: 1,
+  phase: 0,
+  mood: 0
+};
 
-body.position.set(
-    0,
-    -2,
-    0
-);
+let mouse = { x: -9999, y: -9999 };
 
-body.material.rotation =
-    THREE.MathUtils.degToRad(-8);
+window.addEventListener("mousemove", e => {
+  mouse.x = e.clientX;
+  mouse.y = e.clientY;
+});
 
-scene.add(body);
+function drawCat(x, y, s, dir, phase) {
+  ctx.save();
 
-const head =
-    createTextSprite("ВАЛЕРИЙ");
+  ctx.translate(x, y);
+  ctx.scale(dir * s, s);
 
-head.scale.set(
-    18,
-    6,
-    1
-);
+  ctx.fillStyle = "#111";
+  ctx.strokeStyle = "#111";
+  ctx.lineWidth = 4;
+  ctx.lineCap = "round";
+  ctx.lineJoin = "round";
 
-head.position.set(
-    17,
-    9,
-    0
-);
+  // хвост
+  ctx.save();
+  ctx.translate(-64, -22);
+  ctx.rotate(Math.sin(phase * 0.9) * 0.18);
+  ctx.beginPath();
+  ctx.moveTo(0, 0);
+  ctx.bezierCurveTo(-42, -38, -74, -16, -66, 18);
+  ctx.bezierCurveTo(-60, 42, -22, 34, -34, 8);
+  ctx.stroke();
+  ctx.restore();
 
-head.material.rotation =
-    THREE.MathUtils.degToRad(18);
+  // тело
+  ctx.beginPath();
+  ctx.ellipse(0, 0, 64, 34, -0.05, 0, Math.PI * 2);
+  ctx.fill();
 
-scene.add(head);
+  // голова
+  ctx.beginPath();
+  ctx.ellipse(62, -28, 28, 24, 0.1, 0, Math.PI * 2);
+  ctx.fill();
 
-const ear1 =
-    createTextSprite("V");
+  // уши
+  ctx.beginPath();
+  ctx.moveTo(43, -45);
+  ctx.lineTo(49, -76);
+  ctx.lineTo(63, -48);
+  ctx.closePath();
+  ctx.fill();
 
-ear1.scale.set(
-    4,
-    4,
-    1
-);
+  ctx.beginPath();
+  ctx.moveTo(67, -49);
+  ctx.lineTo(83, -73);
+  ctx.lineTo(82, -41);
+  ctx.closePath();
+  ctx.fill();
 
-ear1.position.set(
-    14,
-    14,
-    0
-);
+  // лапы
+  const a = Math.sin(phase);
+  const b = Math.sin(phase + Math.PI);
 
-scene.add(ear1);
+  drawLeg(-34, 24, a);
+  drawLeg(-6, 25, b);
+  drawLeg(28, 24, b);
+  drawLeg(52, 19, a);
 
-const ear2 =
-    createTextSprite("Λ");
+  // глаз
+  ctx.fillStyle = "#f8f5ef";
+  ctx.beginPath();
+  ctx.arc(72, -33, 3.2, 0, Math.PI * 2);
+  ctx.fill();
 
-ear2.scale.set(
-    4,
-    4,
-    1
-);
+  // усики
+  ctx.strokeStyle = "#111";
+  ctx.lineWidth = 1.4;
 
-ear2.position.set(
-    20,
-    14,
-    0
-);
+  ctx.beginPath();
+  ctx.moveTo(84, -28);
+  ctx.lineTo(114, -36);
+  ctx.moveTo(84, -24);
+  ctx.lineTo(116, -24);
+  ctx.moveTo(84, -20);
+  ctx.lineTo(112, -12);
+  ctx.stroke();
 
-scene.add(ear2);
+  ctx.restore();
+}
 
-const tail =
-    createTextSprite("ПЕЧЕЙКИН");
+function drawLeg(x, y, motion) {
+  ctx.save();
+  ctx.translate(x, y);
+  ctx.rotate(motion * 0.35);
 
-tail.scale.set(
-    20,
-    5,
-    1
-);
+  ctx.beginPath();
+  ctx.moveTo(0, 0);
+  ctx.lineTo(-4, 30);
+  ctx.lineTo(14, 30);
+  ctx.lineTo(10, 2);
+  ctx.closePath();
+  ctx.fill();
 
-tail.position.set(
-    -20,
-    -1,
-    0
-);
+  ctx.restore();
+}
 
-tail.material.rotation =
-    THREE.MathUtils.degToRad(-55);
+function drawShadow(x, y, s) {
+  ctx.save();
+  ctx.fillStyle = "rgba(0,0,0,0.08)";
+  ctx.beginPath();
+  ctx.ellipse(x, y + 39 * s, 78 * s, 9 * s, 0, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.restore();
+}
 
-scene.add(tail);
+function animate() {
+  requestAnimationFrame(animate);
 
-const group =
-    new THREE.Group();
+  ctx.clearRect(0, 0, w, h);
 
-group.add(body);
-group.add(head);
-group.add(ear1);
-group.add(ear2);
-group.add(tail);
+  cat.phase += 0.16;
+  cat.x += cat.vx * cat.direction;
 
-scene.add(group);
+  cat.baseY = h * 0.72;
+  cat.y = cat.baseY + Math.sin(cat.phase * 0.8) * 2.5;
 
-let mouseX=0;
-let mouseY=0;
+  const distanceToMouse = Math.hypot(mouse.x - cat.x, mouse.y - cat.y);
 
-window.addEventListener(
-    "mousemove",
-    e=>{
+  if (distanceToMouse < 130) {
+    cat.vx = 1.1;
+    cat.mood += (1 - cat.mood) * 0.06;
+  } else {
+    cat.vx += (2.4 - cat.vx) * 0.03;
+    cat.mood += (0 - cat.mood) * 0.04;
+  }
 
-        mouseX=
-            (e.clientX/window.innerWidth)*2-1;
+  if (cat.x > w + 120) {
+    cat.direction = -1;
+  }
 
-        mouseY=
-            (e.clientY/window.innerHeight)*2-1;
+  if (cat.x < -120) {
+    cat.direction = 1;
+  }
 
-    }
-);
+  const scale = 1 + cat.mood * 0.08;
 
-function animate(time){
+  drawShadow(cat.x, cat.y, scale);
+  drawCat(cat.x, cat.y, scale, cat.direction, cat.phase);
 
-    requestAnimationFrame(animate);
-
-    const t=time*0.001;
-
-    group.rotation.y =
-        Math.sin(t*0.25)*0.08
-        + mouseX*0.15;
-
-    group.rotation.x =
-        Math.cos(t*0.18)*0.03
-        - mouseY*0.05;
-
-    const breath =
-        1+
-        Math.sin(t*0.7)*0.015;
-
-    group.scale.set(
-        breath,
-        breath,
-        breath
-    );
-
-    tail.material.rotation =
-        THREE.MathUtils.degToRad(
-            -55 +
-            Math.sin(t*0.8)*6
-        );
-
-    renderer.render(
-        scene,
-        camera
-    );
+  // маленькая “архивная” точка — чтобы сцена была чуть страннее
+  ctx.save();
+  ctx.fillStyle = "#111";
+  ctx.beginPath();
+  ctx.arc(w / 2, h - 42, 3, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.restore();
 }
 
 animate();
-
-window.addEventListener(
-    "resize",
-    ()=>{
-
-        camera.aspect=
-            window.innerWidth/
-            window.innerHeight;
-
-        camera.updateProjectionMatrix();
-
-        renderer.setSize(
-            window.innerWidth,
-            window.innerHeight
-        );
-
-    }
-);
-
 </script>
+
 </body>
 </html>
