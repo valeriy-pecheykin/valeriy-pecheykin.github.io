@@ -46,18 +46,94 @@
       overflow:hidden;
     }
 
-    .poster::before{
-      content:"";
-      position:absolute;
-      width:38vw;
-      height:38vw;
-      border:2px solid var(--line);
-      border-radius:50%;
-      right:-14vw;
-      top:12vh;
-      opacity:.95;
-    }
+.orbit-wrap{
+  position:absolute;
+  width:38vw;
+  height:38vw;
+  right:-14vw;
+  top:12vh;
+  border:3px solid var(--line);
+  border-radius:50%;
+  z-index:1;
+  pointer-events:none;
+  animation: orbitSwing 10s ease-in-out infinite alternate;
+  transform-origin:center center;
+}
 
+.cat-eye{
+  position:absolute;
+  left:0;
+  top:50%;
+  width:16vw;
+  height:16vw;
+  border-radius:50%;
+  transform:translate(-50%, -50%);
+  overflow:hidden;
+  border:7px solid #111;
+  background:
+    radial-gradient(circle at 45% 45%, #d6cf70 0%, #9aa85a 22%, #4f6f3f 55%, #26331f 100%);
+  box-shadow:0 10px 24px rgba(0,0,0,.18);
+}
+
+.iris-texture{
+  position:absolute;
+  inset:0;
+  border-radius:50%;
+  background:
+    repeating-conic-gradient(
+      from 0deg,
+      rgba(255,255,180,.45) 0deg,
+      rgba(30,60,20,.25) 3deg,
+      rgba(180,150,40,.35) 6deg
+    );
+  mix-blend-mode:multiply;
+  opacity:.75;
+}
+
+.cat-pupil{
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:11%;
+  height:68%;
+  transform:translate(-50%, -50%);
+  background:#050505;
+  border-radius:50%;
+  animation:pupilBreathe 3.8s ease-in-out infinite;
+  z-index:2;
+}
+
+.eye-gloss{
+  position:absolute;
+  left:18%;
+  top:18%;
+  width:30%;
+  height:22%;
+  border-radius:50%;
+  background:rgba(255,255,255,.35);
+  filter:blur(2px);
+  transform:rotate(-25deg);
+  z-index:3;
+}
+
+@keyframes orbitSwing{
+  from{
+    transform:rotate(-18deg);
+  }
+  to{
+    transform:rotate(24deg);
+  }
+}
+
+@keyframes pupilBreathe{
+  0%,100%{
+    width:9%;
+  }
+  50%{
+    width:15%;
+  }
+}
+    
 .orbit-wrap{
   position:absolute;
   width:38vw;
@@ -238,7 +314,6 @@
     @media(max-width:900px){
       .page{grid-template-columns:1fr; padding:18px; gap:18px;}
       .poster{position:relative; top:0; min-height:72vh; padding:24px;}
-      .poster::before{width:72vw;height:72vw;right:-30vw;}
       .poster::after{width:28vw;height:28vw;right:12vw;}
       .roles{grid-template-columns:1fr; gap:6px;}
       .item{grid-template-columns:1fr; gap:6px;}
@@ -249,6 +324,13 @@
 <body>
   <main class="page">
     <section class="poster">
+      <div class="orbit-wrap">
+  <div class="cat-eye">
+    <div class="iris-texture"></div>
+    <div class="cat-pupil"></div>
+    <div class="eye-gloss"></div>
+  </div>
+</div>
       <div class="orbit-wrap">
   <div class="cat-eye">
     <div class="cat-pupil"></div>
