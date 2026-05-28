@@ -233,11 +233,72 @@
       font-weight:400;
     }
 
+    .item h3 a{
+      display:inline;
+    }
+
     .item p{
       margin:0;
       color:var(--muted);
       font-size:15px;
       line-height:1.35;
+    }
+
+    .item-body a{
+      color:inherit;
+      text-decoration:underline;
+      text-decoration-color:transparent;
+      text-underline-offset:3px;
+      text-decoration-thickness:1.5px;
+      border-bottom:none;
+      transition:color .25s ease, text-decoration-color .25s ease;
+    }
+
+    .item-body a:hover{
+      color:var(--ink);
+      text-decoration-color:currentColor;
+    }
+
+    .item-refs{
+      margin:10px 0 0;
+      display:flex;
+      flex-wrap:wrap;
+      gap:6px 16px;
+      font-size:14px;
+      line-height:1.35;
+      letter-spacing:.02em;
+    }
+
+    .item-refs a{
+      color:var(--muted);
+    }
+
+    .item-entries{
+      margin:10px 0 0;
+    }
+
+    .item-body .item-entries a{
+      display:block;
+      padding:10px 0;
+      border-bottom:1px solid rgba(0,0,0,.2);
+      color:var(--muted);
+      font-size:15px;
+      line-height:1.35;
+    }
+
+    .item-body .item-entries a:first-child{padding-top:0}
+
+    .item-body .item-entries a:last-child{
+      padding-bottom:0;
+      border-bottom:none;
+    }
+
+    .item-body .item-entries a:hover{
+      border-bottom-color:rgba(0,0,0,.2);
+    }
+
+    .item-body .item-entries a:last-child:hover{
+      border-bottom-color:transparent;
     }
 
     .contact{
@@ -253,19 +314,104 @@
       border-bottom:1px solid var(--ink);
     }
 
-    .stamp{
-      width:112px;
-      height:112px;
+    .cat-paw-mark{
+      width:80px;
+      height:80px;
+      position:relative;
+      flex-shrink:0;
+      transform:rotate(-10deg);
       border:2px solid var(--line);
       border-radius:50%;
-      display:grid;
-      place-items:center;
-      text-align:center;
-      font-size:11px;
-      line-height:1.2;
-      letter-spacing:.15em;
-      text-transform:uppercase;
-      transform:rotate(-10deg);
+      background:var(--bg);
+      overflow:hidden;
+    }
+
+    .paw-toes{
+      position:absolute;
+      left:50%;
+      top:17px;
+      width:54px;
+      height:30px;
+      transform:translateX(-50%);
+    }
+
+    .toe{
+      position:absolute;
+      width:14px;
+      height:18px;
+      background:#171717;
+      border-radius:50%;
+    }
+
+    .toe-1{
+      left:0;
+      top:8px;
+      transform:rotate(-18deg);
+    }
+
+    .toe-2{
+      left:13px;
+      top:0;
+      transform:rotate(-7deg);
+    }
+
+    .toe-3{
+      right:13px;
+      top:0;
+      transform:rotate(7deg);
+    }
+
+    .toe-4{
+      right:0;
+      top:8px;
+      transform:rotate(18deg);
+    }
+
+    .toe i{
+      position:absolute;
+      left:50%;
+      top:-9px;
+      width:7px;
+      height:13px;
+      transform:translateX(-50%) scaleY(0);
+      transform-origin:bottom center;
+      background:#171717;
+      clip-path:polygon(50% 0%, 100% 100%, 0% 100%);
+      opacity:0;
+      animation:clawOut 5.6s ease-in-out infinite;
+    }
+
+    .toe-1 i{animation-delay:0s}
+    .toe-2 i{animation-delay:.08s}
+    .toe-3 i{animation-delay:.16s}
+    .toe-4 i{animation-delay:.24s}
+
+    .paw-pad{
+      position:absolute;
+      left:50%;
+      top:43px;
+      width:34px;
+      height:25px;
+      transform:translateX(-50%);
+      background:#171717;
+      border-radius:48% 48% 58% 58% / 50% 50% 62% 62%;
+    }
+
+    @keyframes clawOut{
+      0%, 62%, 100%{
+        transform:translateX(-50%) scaleY(0);
+        opacity:0;
+      }
+
+      70%, 82%{
+        transform:translateX(-50%) scaleY(1);
+        opacity:1;
+      }
+
+      90%{
+        transform:translateX(-50%) scaleY(0);
+        opacity:0;
+      }
     }
 
     @media(max-width:900px){
@@ -308,49 +454,110 @@
       </div>
 
       <div class="block">
-        <div class="section-title"><span>архив</span><span>01</span></div>
+        <div class="section-title"><span>актуальное</span><span>01</span></div>
         <div class="items">
           <article class="item">
-            <div class="num">ЛЕКЦИЯ</div>
-            <div><h3>Смешная любовь</h3><p>Признания, которые были осмеяны, непоняты или превратились в искусство.</p></div>
+            <div class="num">ТЕАТР</div>
+            <div class="item-body">
+              <h3>Пьесы, либретто</h3>
+              <div class="item-entries">
+                <a href="https://bolshoi.ru/performances/ballet/the-queen-of-spades" target="_blank" rel="noopener noreferrer">«Пиковая дама» (Большой театр)</a>
+                <a href="https://praktikatheatre.ru/events/beethoven" target="_blank" rel="noopener noreferrer">«Бетховен» (театр «Практика»)</a>
+                <a href="https://teatrgogolya.ru/performances/devyat" target="_blank" rel="noopener noreferrer">«Девять» (Театр Гоголя)</a>
+              </div>
+            </div>
           </article>
           <article class="item">
-            <div class="num">ЛЕКЦИЯ</div>
-            <div><h3>С хлебом не играют</h3><p>Хлеб как символ, индустрия, зрелище и культурный код.</p></div>
+            <div class="num">КИНО</div>
+            <div class="item-body">
+              <h3>Сценарии к фильмам</h3>
+              <div class="item-entries">
+                <a href="https://www.kinopoisk.ru/film/1042556/" target="_blank" rel="noopener noreferrer">«Кислота»</a>
+                <a href="https://www.kinopoisk.ru/film/661124/" target="_blank" rel="noopener noreferrer">«Дирижёр»</a>
+              </div>
+            </div>
           </article>
           <article class="item">
-            <div class="num">МУЗЫКА</div>
-            <div><h3>Густав Малер</h3><p>Композитор как современный миф: голос, память, катастрофа, нежность.</p></div>
+            <div class="num">КНИГИ</div>
+            <div class="item-body">
+              <h3>«Пушкин, помоги!»</h3>
+              <p>Книга о русской литературе от Пушкина до Кафки.</p>
+              <div class="item-refs">
+                <a href="https://ozon.ru/t/Asi9Dmd" target="_blank" rel="noopener noreferrer">Ozon</a>
+                <a href="https://www.wildberries.ru/catalog/157368619/detail.aspx" target="_blank" rel="noopener noreferrer">Wildberries</a>
+              </div>
+            </div>
           </article>
           <article class="item">
-            <div class="num">РОМАН</div>
-            <div><h3>Ляля</h3><p>Ляляляля.</p></div>
+            <div class="num">МЕДИА</div>
+            <div class="item-body">
+              <h3>Избранные тексты</h3>
+              <p>Эссе, рассказы и колонки в медиа.</p>
+              <div class="item-refs">
+                <a href="https://esquire.ru/letters/275793-rabota-fedota-5-korotkih-rasskazov-valeriya-pecheykina-geroyami-kotoryh-stali-kak-proizvoditeli-tak-i-sredstva-proizvodstva/" target="_blank" rel="noopener noreferrer">«Работа Федота»</a>
+                <a href="https://www.pravilamag.ru/letters/193703-seriya-korotkih-rasskazov-valeriya-pecheykina-rosgosvirus-v-kotoryh-mir-posle-pandemii-stanovitsya-voploshcheniem-byurokratii/" target="_blank" rel="noopener noreferrer">«Росгосвирус»</a>
+                <a href="https://moskvichmag.ru/tag/%D0%B2%D0%B0%D0%BB%D0%B5%D1%80%D0%B8%D0%B9-%D0%BF%D0%B5%D1%87%D0%B5%D0%B9%D0%BA%D0%B8%D0%BD/" target="_blank" rel="noopener noreferrer">Москвич Mag</a>
+              </div>
+            </div>
+          </article>
+          <article class="item">
+            <div class="num">ПОДКАСТ</div>
+            <div class="item-body">
+              <h3><a href="https://listay-vpravo.mave.digital/" target="_blank" rel="noopener noreferrer">«Листай вправо»</a></h3>
+              <p>Подкаст, в котором я рассказывал о нон-фикшн литературе.</p>
+            </div>
           </article>
         </div>
       </div>
 
       <div class="block">
-        <div class="section-title"><span>работа</span><span>02</span></div>
+        <div class="section-title"><span>лекции</span><span>02</span></div>
         <div class="items">
           <article class="item">
-            <div class="num">ТЕАТР</div>
-            <div><h3>Театральные тексты</h3><p>Пьесы, либретто, драматургия проектов, сценические концепции.</p></div>
+            <div class="num">центр «Зотов»</div>
+            <div>
+              <h3>О конструктивистах и котах</h3>
+              <p>«Красный смех», «Музыка машин: слушай и работай», «Маяковский и материя», «Как Пушкин стал салатом», «С хлебом (не) играют», «Смешная любовь»</p>
+            </div>
           </article>
           <article class="item">
-            <div class="num">ЛЕКЦИИ</div>
-            <div><h3>Публичные выступления</h3><p>Культура, музыка, искусство, технологии и странная логика повседневности.</p></div>
+            <div class="num">«Рабочий и Колхозница»</div>
+            <div>
+              <h3>О музыке и мыслителях</h3>
+              <p>«Ницше», «Кафка», «Бетховен», «Малер», «Шостакович», «Шнитке», «Адамс, Мартынов, Гонзалес»</p>
+            </div>
+          </article>
+        </div>
+      </div>
+
+      <div class="block">
+        <div class="section-title"><span>социальные сети</span><span>03</span></div>
+        <div class="items">
+          <article class="item">
+            <div class="num">Телеграм-канал</div>
+            <div class="item-body">
+              <h3><a href="https://t.me/gregor_zamza" target="_blank" rel="noopener noreferrer">«Злой мальчик»</a></h3>
+            </div>
           </article>
         </div>
       </div>
 
       <div class="block contact">
         <div>
-          <div class="section-title"><span>контакты</span><span>03</span></div>
-          <p style="margin:0;font-size:22px;line-height:1.25;letter-spacing:-.02em;">
+          <div class="section-title"><span>контакты</span><span>04</span></div>
+          <p style="margin:0;font-size:22px;line-height:1.35;letter-spacing:-.02em;">
             <a href="mailto:valeriy.pecheykin@gmail.com">valeriy.pecheykin@gmail.com</a>
           </p>
         </div>
-        <div class="stamp">^ↀᴥↀ^</div>
+        <div class="cat-paw-mark" aria-hidden="true">
+          <div class="paw-toes">
+            <span class="toe toe-1"><i></i></span>
+            <span class="toe toe-2"><i></i></span>
+            <span class="toe toe-3"><i></i></span>
+            <span class="toe toe-4"><i></i></span>
+          </div>
+          <div class="paw-pad"></div>
+        </div>
       </div>
     </section>
   </main>
