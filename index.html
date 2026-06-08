@@ -248,6 +248,22 @@
       margin:0;
     }
 
+    .poster-lead{
+      position:relative;
+      z-index:2;
+      max-width:82%;
+      margin-top:28px;
+      padding-top:18px;
+      border-top:2px solid var(--line);
+    }
+
+    .poster-lead p{
+      margin:0;
+      font-size:clamp(24px, 2.5vw, 42px);
+      line-height:1;
+      letter-spacing:-.045em;
+    }
+
     .section-title{
       display:flex;
       justify-content:space-between;
@@ -472,10 +488,20 @@
       }
     }
 
-    @media(max-width:900px){
+    
+.news-block{border:2px solid var(--accent);background:#f7f3ec;}
+.news-image{width:100%;height:320px;object-fit:cover;border:2px solid var(--line);margin-bottom:20px;}
+.news-badge{display:inline-block;border:1px solid var(--accent);color:var(--accent);padding:6px 11px;font-size:11px;line-height:1;letter-spacing:.18em;text-transform:uppercase;margin-bottom:14px;}
+.news-title{font-size:clamp(28px, 3.4vw, 52px);line-height:.98;letter-spacing:-.045em;margin:0 0 18px 0;font-weight:400;}
+.news-text{font-size:18px;line-height:1.5;color:var(--muted);max-width:900px;}
+.news-link{display:inline-block;margin-top:12px;font-size:18px;}
+
+@media(max-width:900px){
       .page{grid-template-columns:1fr; padding:18px; gap:18px;}
       .poster{position:relative; top:0; min-height:72vh; padding:24px;}
       .poster::after{width:28vw;height:28vw;right:12vw;}
+      .poster-lead{max-width:100%; margin-top:22px;}
+      .poster-lead p{font-size:clamp(28px, 8vw, 46px);}
       .roles{grid-template-columns:1fr; gap:6px;}
       .item{grid-template-columns:1fr; gap:6px;}
       .contact{grid-template-columns:1fr;}
@@ -501,18 +527,26 @@
           <div>драматург</div>
           <div>лектор</div>
         </div>
+        <div class="poster-lead">
+          <p>Пишу тексты, читаю лекции о музыке и кошках (^ↀᴥↀ^), выступаю на конференциях и телевидении, этот сайт сделал сам.</p>
+        </div>
       </div>
 
       <div class="small">кино · театр · музыка · культура · искусство</div>
     </section>
 
     <section class="content">
-      <div class="block">
-        <p class="lead">Пишу тексты, читаю лекции о музыке и кошках (^ↀᴥↀ^), выступаю на конференциях и телевидении, этот сайт сделал сам.</p>
-      </div>
-
-      <div class="block">
-        <div class="section-title"><span>актуальное</span><span>01</span></div>
+      
+<div class="block news-block">
+<div class="section-title"><span>новости</span><span>01</span></div>
+<img class="news-image" src="images/news/public-reading-bengali-book.jpg" alt="Бенгальское издание пьесы «Публичное чтение»">
+<div class="news-badge">ПЕРЕВОД</div>
+<h2 class="news-title">«Публичное чтение» вышло на бенгальском языке</h2>
+<p class="news-text">В Калькутте опубликован бенгальский перевод моей пьесы «Публичное чтение». Книгу выпустило издательство Bhasha Samsad, перевод выполнила доктор Смита Сенгупта. В рецензии журнала East India Story пьеса названа произведением «о кризисе и будущем библиотек», которое показывает, как можно вернуть жизнь в опустевшие читальные залы.</p>
+<p><a class="news-link" href="https://eastindiastory.com/%E0%A6%9C%E0%A6%A8%E0%A6%B8%E0%A6%AE%E0%A6%95%E0%A7%8D%E0%A6%B7%E0%A7%87-%E0%A6%AA%E0%A6%BE%E0%A6%A0-%E0%A6%AD%E0%A7%8D%E0%A6%AF%E0%A6%BE%E0%A6%B2%E0%A7%87%E0%A6%B0%E0%A6%BF-%E0%A6%AA%E0%A7%87/" target="_blank">Читать рецензию →</a></p>
+</div>
+<div class="block">
+        <div class="section-title"><span>актуальное</span><span>02</span></div>
         <div class="items">
           <article class="item">
             <div class="num">ТЕАТР</div>
@@ -569,7 +603,7 @@
       </div>
 
       <div class="block">
-        <div class="section-title"><span>лекции</span><span>02</span></div>
+        <div class="section-title"><span>лекции</span><span>03</span></div>
         <div class="items">
           <article class="item">
             <div class="num">центр «Зотов»</div>
@@ -589,7 +623,7 @@
       </div>
 
       <div class="block">
-        <div class="section-title"><span>социальные сети</span><span>03</span></div>
+        <div class="section-title"><span>социальные сети</span><span>04</span></div>
         <div class="items">
           <article class="item">
             <div class="num">Телеграм-канал</div>
@@ -602,7 +636,7 @@
 
       <div class="block contact">
         <div>
-          <div class="section-title"><span>контакты</span><span>04</span></div>
+          <div class="section-title"><span>контакты</span><span>05</span></div>
           <p style="margin:0;font-size:22px;line-height:1.35;letter-spacing:-.02em;">
             <a href="mailto:valeriy.pecheykin@gmail.com">valeriy.pecheykin@gmail.com</a>
           </p>
