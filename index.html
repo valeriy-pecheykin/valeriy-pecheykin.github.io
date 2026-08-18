@@ -1,661 +1,986 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta name="description"
-      content="Валерий Печейкин — писатель, драматург, сценарист и лектор. Лекции, тексты, книги, театр, кино и контакты.">
+<title>Валерий Печейкин — писатель, драматург, лектор</title>
 
-<meta name="author"
-      content="Валерий Печейкин">
+<meta name="description" content="Валерий Печейкин — писатель, драматург, сценарист и лектор. Лекции, тексты, книги, театр, кино и контакты.">
+<meta name="author" content="Валерий Печейкин">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#f1ebe0">
+<link rel="canonical" href="https://pecheyk.in/">
 
-<meta name="robots"
-      content="index,follow">
+<meta property="og:title" content="Валерий Печейкин — писатель, драматург, лектор">
+<meta property="og:site_name" content="Валерий Печейкин">
+<meta property="og:description" content="Писатель, драматург, сценарист и лектор">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://pecheyk.in">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:image" content="https://pecheyk.in/preview.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Валерий Печейкин — писатель, драматург, лектор">
 
-<meta property="og:title"
-      content="Валерий Печейкин — драматург, писатель, лектор">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Валерий Печейкин — писатель, драматург, лектор">
+<meta name="twitter:description" content="Писатель, драматург, сценарист и лектор">
+<meta name="twitter:image" content="https://pecheyk.in/preview.jpg">
 
-<meta property="og:site_name"
-      content="Валерий Печейкин">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
 
-<meta property="og:description"
-      content="Драматург, писатель, сценарист и лектор">
+<style>
+/* ============================================================
+   pecheyk.in — афиша и архив
+   1. переменные
+   2. база и типографика
+   3. каркас страницы: полосы, две колонки
+   4. афиша: имя, роли, текст, глаз
+   5. архив: секции, строки, новость
+   6. контакты и лапа
+   7. мобильная версия
+   8. движение и печать
+   ============================================================ */
 
-<meta property="og:type"
-      content="website">
+/* 1. переменные ------------------------------------------------ */
+:root{
+  --paper:#f1ebe0;
+  --paper-warm:#e9e0cf;
+  --ink:#141210;
+  --muted:#6d665b;
+  --rule:#141210;
+  --rule-soft:rgba(20,18,16,.2);
+  --accent:#c42d14;
 
-<meta property="og:url"
-      content="https://pecheyk.in">
+  --pad:clamp(18px,3.4vw,52px);
+  --gutter:clamp(26px,3.6vw,58px);
 
-<meta property="og:locale"
-      content="ru_RU">
+  --sans:"Helvetica Neue",-apple-system,BlinkMacSystemFont,Arial,"Liberation Sans",sans-serif;
 
-<meta property="og:image"
-      content="https://pecheyk.in/preview.jpg">
-
-<meta property="og:image:width"
-      content="1200">
-
-<meta property="og:image:height"
-      content="630">
-
-<meta property="og:image:alt"
-      content="Валерий Печейкин — драматург, писатель, лектор">
-
-<meta name="twitter:card"
-      content="summary_large_image">
-
-<meta name="twitter:title"
-      content="Валерий Печейкин — драматург, писатель, лектор">
-
-<meta name="twitter:description"
-      content="Драматург, писатель, сценарист и лектор">
-
-<meta name="twitter:image"
-      content="https://pecheyk.in/preview.jpg">
-
-<title>
-Валерий Печейкин — драматург, писатель, лектор
-</title>
-
-<link rel="icon"
-      href="favicon.svg"
-      type="image/svg+xml">
-  <style>
-    :root{
-      --bg:#f4f0e8;
-      --ink:#101010;
-      --muted:#6b665f;
-      --line:#111;
-      --accent:#d94b35;
-    }
-
-    *{box-sizing:border-box}
-
-    html,body{
-      margin:0;
-      background:var(--bg);
-      color:var(--ink);
-      font-family: Arial, Helvetica, sans-serif;
-    }
-
-    body{
-      min-height:100vh;
-    }
-
-    .page{
-      min-height:100vh;
-      padding:34px;
-      display:grid;
-      grid-template-columns: 1.15fr 1fr;
-      gap:34px;
-    }
-
-    .poster{
-      border:2px solid var(--line);
-      min-height:calc(100vh - 68px);
-      padding:34px;
-      display:flex;
-      flex-direction:column;
-      justify-content:space-between;
-      position:sticky;
-      top:34px;
-      overflow:hidden;
-    }
-
-.orbit-wrap{
-  position:absolute;
-  width:38vw;
-  height:38vw;
-  right:-14vw;
-  top:12vh;
-  border:3px solid var(--line);
-  border-radius:50%;
-  z-index:1;
-  pointer-events:none;
-  animation: orbitSwing 10s ease-in-out infinite alternate;
-  transform-origin:center center;
+  --micro:11px;
+  --micro-track:.24em;
 }
 
-.cat-eye{
+/* 2. база ------------------------------------------------------ */
+*{box-sizing:border-box}
+
+html{-webkit-text-size-adjust:100%}
+
+body{
+  margin:0;
+  padding:0 var(--pad);
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--sans);
+  font-size:16px;
+  line-height:1.45;
+  -webkit-font-smoothing:antialiased;
+  font-variant-numeric:tabular-nums;
+}
+
+h1,h2,h3{font-weight:400;margin:0}
+
+p{margin:0}
+
+a{
+  color:inherit;
+  text-decoration:none;
+  border-bottom:1px solid var(--rule-soft);
+  transition:border-color .2s ease,color .2s ease;
+}
+
+a:hover{border-bottom-color:var(--ink)}
+
+a:focus-visible{
+  outline:2px solid var(--accent);
+  outline-offset:3px;
+  border-bottom-color:transparent;
+}
+
+img{display:block;max-width:100%}
+
+.micro{
+  font-size:var(--micro);
+  line-height:1.2;
+  letter-spacing:var(--micro-track);
+  text-transform:uppercase;
+  color:var(--muted);
+}
+
+/* 3. каркас ---------------------------------------------------- */
+.band{
+  display:flex;
+  justify-content:space-between;
+  align-items:baseline;
+  gap:20px;
+  padding:14px 0 12px;
+}
+
+.band--top{border-bottom:1px solid var(--rule)}
+
+.band--bottom{
+  border-top:1px solid var(--rule);
+  margin-top:clamp(40px,6vh,80px);
+  padding-bottom:16px;
+}
+
+.band span{white-space:nowrap}
+
+.band a{border-bottom:none}
+.band a:hover{color:var(--ink)}
+
+.page{
+  display:grid;
+  grid-template-columns:minmax(0,1.04fr) minmax(0,1fr);
+  align-items:start;
+}
+
+/* 4. афиша ----------------------------------------------------- */
+.poster{
+  position:sticky;
+  top:0;
+  min-height:calc(100vh - 41px);
+  min-height:calc(100svh - 41px);
+  padding:clamp(26px,5vh,64px) var(--gutter) clamp(20px,3.4vh,40px) 0;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  gap:clamp(28px,5vh,64px);
+  overflow:hidden;
+}
+
+.name{
+  position:relative;
+  z-index:2;
+  font-size:clamp(50px,8.2vw,170px);
+  line-height:.84;
+  letter-spacing:-.052em;
+  text-transform:uppercase;
+  margin-left:-.045em;
+}
+
+.roles{
+  position:relative;
+  z-index:2;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:0;
+  margin:clamp(20px,2.6vh,32px) 0 0;
+  padding:11px 0 0;
+  list-style:none;
+  border-top:1px solid var(--rule);
+  font-size:13px;
+  letter-spacing:.11em;
+  text-transform:uppercase;
+}
+
+.poster__foot{
+  position:relative;
+  z-index:2;
+}
+
+.about{
+  max-width:34ch;
+  font-size:clamp(16px,1.25vw,19px);
+  line-height:1.42;
+  letter-spacing:-.005em;
+  margin-bottom:clamp(20px,3vh,34px);
+}
+
+.cat-face{
+  color:var(--accent);
+  white-space:nowrap;
+  font-size:.94em;
+}
+
+.credits{
+  display:flex;
+  justify-content:space-between;
+  align-items:baseline;
+  gap:8px 18px;
+  flex-wrap:wrap;
+  border-top:1px solid var(--rule);
+  padding-top:11px;
+}
+
+/* глаз */
+.orbit{
+  position:absolute;
+  z-index:1;
+  width:44vw;
+  height:44vw;
+  right:-32vw;
+  top:24vh;
+  border:1px solid var(--rule);
+  border-radius:50%;
+  pointer-events:none;
+  transform-origin:50% 50%;
+  animation:orbit 34s ease-in-out infinite alternate;
+}
+
+.eye{
   position:absolute;
   left:0;
   top:50%;
-  width:16vw;
-  height:16vw;
+  width:13.5vw;
+  height:13.5vw;
+  transform:translate(-50%,-50%);
   border-radius:50%;
-  transform:translate(-50%, -50%);
+  border:clamp(4px,.42vw,7px) solid var(--ink);
   overflow:hidden;
-  border:7px solid #111;
-  background:
-    radial-gradient(circle at 45% 45%, #d6cf70 0%, #9aa85a 22%, #4f6f3f 55%, #26331f 100%);
-  box-shadow:0 10px 24px rgba(0,0,0,.18);
+  background:radial-gradient(circle at 44% 42%,#d8d07a 0%,#9aa85a 24%,#4f6f3f 56%,#22301c 100%);
 }
 
-.iris-texture{
+.iris{
   position:absolute;
   inset:0;
   border-radius:50%;
-  background:
-    repeating-conic-gradient(
-      from 0deg,
-      rgba(255,255,180,.45) 0deg,
-      rgba(30,60,20,.25) 3deg,
-      rgba(180,150,40,.35) 6deg
-    );
+  background:repeating-conic-gradient(from 0deg,
+    rgba(255,255,180,.4) 0deg,
+    rgba(30,60,20,.22) 3deg,
+    rgba(180,150,40,.3) 6deg);
   mix-blend-mode:multiply;
-  opacity:.75;
+  opacity:.6;
 }
 
-.cat-pupil{
+.pupil{
   position:absolute;
   left:50%;
   top:50%;
   width:11%;
-  height:68%;
-  transform:translate(-50%, -50%);
+  height:66%;
   background:#050505;
   border-radius:50%;
-  animation:pupilBreathe 3.8s ease-in-out infinite;
+  transform:translate(calc(-50% + var(--px,0px)),calc(-50% + var(--py,0px)));
+  transition:transform 1.1s cubic-bezier(.22,.61,.36,1);
+  animation:pupil 9s ease-in-out infinite;
   z-index:2;
 }
 
-.eye-gloss{
+.gloss{
   position:absolute;
-  left:18%;
-  top:18%;
-  width:30%;
-  height:22%;
+  left:17%;
+  top:16%;
+  width:29%;
+  height:21%;
   border-radius:50%;
-  background:rgba(255,255,255,.35);
+  background:rgba(255,255,255,.22);
   filter:blur(2px);
   transform:rotate(-25deg);
   z-index:3;
 }
 
-@keyframes orbitSwing{
-  from{
-    transform:rotate(-18deg);
-  }
-  to{
-    transform:rotate(24deg);
-  }
+@keyframes orbit{
+  from{transform:rotate(-7deg)}
+  to{transform:rotate(9deg)}
 }
 
-@keyframes pupilBreathe{
-  0%,100%{
-    width:9%;
-  }
-  50%{
-    width:15%;
-  }
+@keyframes pupil{
+  0%,100%{width:10%}
+  50%{width:14.5%}
 }
-    
-    .small{
-      font-size:13px;
-      line-height:1.35;
-      letter-spacing:.22em;
-      text-transform:uppercase;
-      color:var(--muted);
-      position:relative;
-      z-index:2;
-    }
 
-    h1{
-      position:relative;
-      z-index:2;
-      margin:0;
-      font-size:clamp(54px, 8.2vw, 132px);
-      line-height:.82;
-      font-weight:400;
-      letter-spacing:-.055em;
-      text-transform:uppercase;
-    }
+/* 5. архив ----------------------------------------------------- */
+.archive{
+  border-left:1px solid var(--rule);
+  padding:clamp(26px,5vh,64px) 0 0 var(--gutter);
+}
 
-    .roles{
-      position:relative;
-      z-index:2;
-      display:grid;
-      grid-template-columns:repeat(3,1fr);
-      border-top:2px solid var(--line);
-      margin-top:34px;
-    }
+.section{position:relative}
 
-    .roles div{
-      padding:14px 12px 0 0;
-      font-size:16px;
-      letter-spacing:.08em;
-      text-transform:uppercase;
-    }
+.section+.section{margin-top:clamp(44px,6.5vh,86px)}
 
-    .content{
-      display:flex;
-      flex-direction:column;
-      gap:18px;
-    }
+.section__head{
+  display:flex;
+  align-items:baseline;
+  gap:14px;
+  border-bottom:1px solid var(--rule);
+  padding-bottom:10px;
+  margin-bottom:clamp(18px,2.4vh,28px);
+}
 
-    .block{
-      border:2px solid var(--line);
-      padding:24px;
-      background:rgba(244,240,232,.7);
-    }
+.section__num{
+  font-size:var(--micro);
+  letter-spacing:.1em;
+  color:var(--accent);
+}
 
-    .lead{
-      font-size:clamp(28px, 3.4vw, 52px);
-      line-height:.98;
-      letter-spacing:-.045em;
-      margin:0;
-    }
+.section__name{
+  font-size:12px;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+}
 
-    .poster-lead{
-      position:relative;
-      z-index:2;
-      max-width:82%;
-      margin-top:28px;
-      padding-top:18px;
-      border-top:2px solid var(--line);
-    }
+.section__count{
+  margin-left:auto;
+  font-size:var(--micro);
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--muted);
+}
 
-    .poster-lead p{
-      margin:0;
-      font-size:clamp(24px, 2.5vw, 42px);
-      line-height:1;
-      letter-spacing:-.045em;
-    }
+/* новость */
+.news{
+  display:grid;
+  grid-template-columns:minmax(0,44%) minmax(0,1fr);
+  gap:clamp(18px,2vw,28px);
+  align-items:start;
+}
 
-    .section-title{
-      display:flex;
-      justify-content:space-between;
-      align-items:baseline;
-      gap:20px;
-      border-bottom:2px solid var(--line);
-      padding-bottom:12px;
-      margin-bottom:16px;
-      text-transform:uppercase;
-      letter-spacing:.18em;
-      font-size:13px;
-      color:var(--muted);
-    }
+.news figure{margin:0}
 
-    .items{
-      display:grid;
-      gap:0;
-    }
+.news img{
+  width:100%;
+  height:auto;
+  border:1px solid var(--rule);
+}
 
-    .item{
-      display:grid;
-      grid-template-columns: 92px 1fr;
-      gap:18px;
-      padding:16px 0;
-      border-bottom:1px solid rgba(0,0,0,.35);
-    }
+.news figcaption{
+  margin-top:8px;
+  font-size:11.5px;
+  line-height:1.3;
+  letter-spacing:.02em;
+  color:var(--muted);
+}
 
-    .item:last-child{border-bottom:none}
+.flag{
+  display:block;
+  font-size:var(--micro);
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  color:var(--accent);
+  margin-bottom:10px;
+}
 
-    .num{
-      color:var(--accent);
-      font-size:13px;
-      letter-spacing:.18em;
-    }
+.news h3{
+  font-size:clamp(25px,2.5vw,34px);
+  line-height:1.02;
+  letter-spacing:-.035em;
+  margin-bottom:12px;
+}
 
-    .item h3{
-      margin:0 0 7px 0;
-      font-size:25px;
-      line-height:1;
-      letter-spacing:-.035em;
-      font-weight:400;
-    }
+.news p{
+  font-size:15px;
+  line-height:1.5;
+  color:var(--muted);
+  max-width:46ch;
+}
 
-    .item h3 a{
-      display:inline;
-    }
+.news p+p{margin-top:9px}
 
-    .item p{
-      margin:0;
-      color:var(--muted);
-      font-size:15px;
-      line-height:1.35;
-    }
+.news .more{
+  display:inline-block;
+  margin-top:14px;
+  font-size:14px;
+  letter-spacing:.02em;
+  color:var(--ink);
+  border-bottom:1px solid var(--rule-soft);
+}
 
-    .item-body a{
-      color:inherit;
-      text-decoration:underline;
-      text-decoration-color:transparent;
-      text-underline-offset:3px;
-      text-decoration-thickness:1.5px;
-      border-bottom:none;
-      transition:color .25s ease, text-decoration-color .25s ease;
-    }
+@media (max-width:1300px){
+  .news{grid-template-columns:1fr;gap:16px}
+  .news figure{max-width:520px}
+}
 
-    .item-body a:hover{
-      color:var(--ink);
-      text-decoration-color:currentColor;
-    }
+/* строки архива */
+.row{
+  position:relative;
+  display:grid;
+  grid-template-columns:84px minmax(0,1fr) 18px;
+  gap:0 18px;
+  align-items:start;
+  padding:15px 10px 16px;
+  margin:0 -10px;
+  border-bottom:1px solid var(--rule-soft);
+  transition:background-color .2s ease;
+}
 
-    .item-refs{
-      margin:10px 0 0;
-      display:flex;
-      flex-wrap:wrap;
-      gap:6px 16px;
-      font-size:14px;
-      line-height:1.35;
-      letter-spacing:.02em;
-    }
+.row:last-child{border-bottom:none}
 
-    .item-refs a{
-        color:#4f4b46;
-        font-size:17px;
-        font-weight:500;
-    }
+.row:hover{background:var(--paper-warm)}
 
-    .item-entries{
-      margin:10px 0 0;
-    }
+.row__meta{
+  display:flex;
+  flex-direction:column;
+  gap:5px;
+  padding-top:4px;
+}
 
-    .item-body .item-entries a{
-      display:block;
-      padding:10px 0;
-      border-bottom:1px solid rgba(0,0,0,.2);
-      color:#3f3b36;
-      font-size:18px;
-      font-weight:500;
-      line-height:1.45;
-      letter-spacing:-.01em;
-    }
+.rubric{
+  font-size:10.5px;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--accent);
+}
 
-    .item-body .item-entries a:first-child{padding-top:0}
+.year{
+  font-size:12px;
+  letter-spacing:.06em;
+  color:var(--muted);
+}
 
-    .item-body .item-entries a:last-child{
-      padding-bottom:0;
-      border-bottom:none;
-    }
+.row h3{
+  font-size:clamp(21px,1.7vw,25px);
+  line-height:1.08;
+  letter-spacing:-.028em;
+}
 
-    .item-body .item-entries a:hover{
-      border-bottom-color:rgba(0,0,0,.2);
-    }
+.row h3 a{border-bottom:1px solid transparent}
 
-    .item-body .item-entries a:last-child:hover{
-      border-bottom-color:transparent;
-    }
+.row:hover h3 a{border-bottom-color:var(--ink)}
 
-    .contact{
-      display:grid;
-      grid-template-columns:1fr auto;
-      gap:20px;
-      align-items:end;
-    }
+.row__note{
+  margin-top:6px;
+  font-size:14.5px;
+  line-height:1.4;
+  color:var(--muted);
+  max-width:44ch;
+}
 
-    a{
-      color:var(--ink);
-      text-decoration:none;
-      border-bottom:1px solid var(--ink);
-    }
+.row__refs{
+  margin-top:9px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:4px 14px;
+  font-size:13.5px;
+}
 
-    .cat-paw-mark{
-      width:80px;
-      height:80px;
-      position:relative;
-      flex-shrink:0;
-      transform:rotate(-10deg);
-      border:2px solid var(--line);
-      border-radius:50%;
-      background:var(--bg);
-      overflow:hidden;
-    }
+.row__refs a{color:var(--muted)}
+.row__refs a:hover{color:var(--ink)}
 
-    .paw-toes{
-      position:absolute;
-      left:50%;
-      top:17px;
-      width:54px;
-      height:30px;
-      transform:translateX(-50%);
-    }
+.row__mark{
+  align-self:start;
+  padding-top:6px;
+  font-size:14px;
+  color:var(--muted);
+  opacity:0;
+  transform:translateX(-3px);
+  transition:opacity .2s ease,transform .2s ease;
+}
 
-    .toe{
-      position:absolute;
-      width:14px;
-      height:18px;
-      background:#171717;
-      border-radius:50%;
-    }
+.row:hover .row__mark{opacity:1;transform:translateX(0)}
 
-    .toe-1{
-      left:0;
-      top:8px;
-      transform:rotate(-18deg);
-    }
+/* вся строка кликабельна, если в ней одна ссылка */
+.row--link h3 a::after{
+  content:"";
+  position:absolute;
+  inset:0;
+}
 
-    .toe-2{
-      left:13px;
-      top:0;
-      transform:rotate(-7deg);
-    }
+.programme{
+  margin-top:9px;
+  font-size:14px;
+  line-height:1.5;
+  color:var(--muted);
+  max-width:52ch;
+}
 
-    .toe-3{
-      right:13px;
-      top:0;
-      transform:rotate(7deg);
-    }
+/* 6. контакты -------------------------------------------------- */
+.mail{
+  font-size:clamp(19px,1.7vw,25px);
+  line-height:1.2;
+  letter-spacing:-.02em;
+}
 
-    .toe-4{
-      right:0;
-      top:8px;
-      transform:rotate(18deg);
-    }
+.paw{
+  width:64px;
+  height:64px;
+  border:1px solid var(--rule);
+  border-radius:50%;
+  background:var(--paper);
+  transform:rotate(-9deg);
+  overflow:hidden;
+}
 
-    .toe i{
-      position:absolute;
-      left:50%;
-      top:-9px;
-      width:7px;
-      height:13px;
-      transform:translateX(-50%) scaleY(0);
-      transform-origin:bottom center;
-      background:#171717;
-      clip-path:polygon(50% 0%, 100% 100%, 0% 100%);
-      opacity:0;
-      animation:clawOut 5.6s ease-in-out infinite;
-    }
+.stamp{
+  display:flex;
+  justify-content:flex-end;
+  margin-top:20px;
+}
 
-    .toe-1 i{animation-delay:0s}
-    .toe-2 i{animation-delay:.08s}
-    .toe-3 i{animation-delay:.16s}
-    .toe-4 i{animation-delay:.24s}
+.toes{
+  position:absolute;
+  left:50%;
+  top:14px;
+  width:43px;
+  height:24px;
+  transform:translateX(-50%);
+}
 
-    .paw-pad{
-      position:absolute;
-      left:50%;
-      top:43px;
-      width:34px;
-      height:25px;
-      transform:translateX(-50%);
-      background:#171717;
-      border-radius:48% 48% 58% 58% / 50% 50% 62% 62%;
-    }
+.toe{
+  position:absolute;
+  width:11px;
+  height:14px;
+  background:var(--ink);
+  border-radius:50%;
+}
 
-    @keyframes clawOut{
-      0%, 62%, 100%{
-        transform:translateX(-50%) scaleY(0);
-        opacity:0;
-      }
+.toe-1{left:0;top:7px;transform:rotate(-18deg)}
+.toe-2{left:10px;top:0;transform:rotate(-7deg)}
+.toe-3{right:10px;top:0;transform:rotate(7deg)}
+.toe-4{right:0;top:7px;transform:rotate(18deg)}
 
-      70%, 82%{
-        transform:translateX(-50%) scaleY(1);
-        opacity:1;
-      }
+.toe i{
+  position:absolute;
+  left:50%;
+  top:-7px;
+  width:5px;
+  height:10px;
+  background:var(--ink);
+  clip-path:polygon(50% 0%,100% 100%,0% 100%);
+  transform:translateX(-50%) scaleY(0);
+  transform-origin:bottom center;
+  opacity:0;
+  animation:claw 11s ease-in-out infinite;
+}
 
-      90%{
-        transform:translateX(-50%) scaleY(0);
-        opacity:0;
-      }
-    }
+.toe-2 i{animation-delay:.07s}
+.toe-3 i{animation-delay:.14s}
+.toe-4 i{animation-delay:.21s}
 
-    
-.news-block{border:2px solid var(--accent);background:#f7f3ec;}
-.news-image{width:100%;height:320px;object-fit:cover;border:2px solid var(--line);margin-bottom:20px;}
-.news-badge{display:inline-block;border:1px solid var(--accent);color:var(--accent);padding:6px 11px;font-size:11px;line-height:1;letter-spacing:.18em;text-transform:uppercase;margin-bottom:14px;}
-.news-title{font-size:clamp(28px, 3.4vw, 52px);line-height:.98;letter-spacing:-.045em;margin:0 0 18px 0;font-weight:400;}
-.news-text{font-size:18px;line-height:1.5;color:var(--muted);max-width:900px;}
-.news-link{display:inline-block;margin-top:12px;font-size:18px;}
+.pad{
+  position:absolute;
+  left:50%;
+  top:34px;
+  width:27px;
+  height:20px;
+  transform:translateX(-50%);
+  background:var(--ink);
+  border-radius:48% 48% 58% 58% / 50% 50% 62% 62%;
+}
 
-@media(max-width:900px){
-      .page{grid-template-columns:1fr; padding:18px; gap:18px;}
-      .poster{position:relative; top:0; min-height:72vh; padding:24px;}
-      .poster::after{width:28vw;height:28vw;right:12vw;}
-      .poster-lead{max-width:100%; margin-top:22px;}
-      .poster-lead p{font-size:clamp(28px, 8vw, 46px);}
-      .roles{grid-template-columns:1fr; gap:6px;}
-      .item{grid-template-columns:1fr; gap:6px;}
-      .contact{grid-template-columns:1fr;}
-    }
-  </style>
+@keyframes claw{
+  0%,80%,100%{transform:translateX(-50%) scaleY(0);opacity:0}
+  86%,92%{transform:translateX(-50%) scaleY(1);opacity:1}
+  96%{transform:translateX(-50%) scaleY(0);opacity:0}
+}
+
+/* 7. мобильная версия ------------------------------------------ */
+@media (max-width:900px){
+  :root{--micro:10px}
+
+  .page{grid-template-columns:1fr}
+
+  .poster{
+    position:relative;
+    top:auto;
+    min-height:auto;
+    padding:clamp(22px,4vh,34px) 0 0;
+    gap:clamp(26px,4vh,40px);
+  }
+
+  .name{font-size:clamp(44px,16.4vw,96px)}
+
+  .roles{
+    font-size:11.5px;
+    letter-spacing:.08em;
+    margin-top:18px;
+  }
+
+  .about{
+    max-width:38ch;
+    font-size:17px;
+  }
+
+  /* глаз становится печатью в конце афиши */
+  .poster__eye{
+    position:relative;
+    height:70vw;
+    margin:0 calc(var(--pad)*-1) 0 0;
+    overflow:hidden;
+  }
+
+  .orbit{
+    width:66vw;
+    height:66vw;
+    right:-10vw;
+    top:2vw;
+    animation-duration:44s;
+  }
+
+  .eye{width:22vw;height:22vw}
+
+  .credits{
+    flex-direction:column;
+    align-items:flex-start;
+    gap:6px;
+  }
+
+  .archive{
+    border-left:none;
+    padding:clamp(30px,5vh,44px) 0 0;
+  }
+
+  .news{grid-template-columns:1fr;gap:16px}
+
+
+  .row{
+    grid-template-columns:1fr 18px;
+    gap:0 12px;
+    padding:14px 0 15px;
+    margin:0;
+  }
+
+  .row__meta{
+    flex-direction:row;
+    align-items:baseline;
+    gap:10px;
+    padding:0 0 6px;
+    grid-column:1 / -1;
+  }
+
+  .row__mark{display:none}
+
+}
+
+@media (min-width:901px){
+  .poster__eye{display:contents}
+}
+
+/* 8. движение и печать ----------------------------------------- */
+@media (prefers-reduced-motion:reduce){
+  .orbit,.pupil,.toe i{animation:none}
+  .pupil{transition:none}
+  html{scroll-behavior:auto}
+}
+
+html{scroll-behavior:smooth}
+
+@media print{
+  .orbit,.paw,.band--bottom{display:none}
+  body{padding:0;background:#fff}
+  .poster{position:static;min-height:0}
+  .archive{border:none;padding-left:0}
+}
+</style>
 </head>
-<body>
-  <main class="page">
-    <section class="poster">
-      <div class="orbit-wrap">
-  <div class="cat-eye">
-    <div class="iris-texture"></div>
-    <div class="cat-pupil"></div>
-    <div class="eye-gloss"></div>
-  </div>
-</div>
-      <div class="small">Это кошачий глаз</div>
 
-      <div>
-        <h1>Валерий<br>Печейкин</h1>
-        <div class="roles">
-          <div>драматург</div>
-          <div>писатель</div>
-          <div>лектор</div>
-        </div>
-        <div class="poster-lead">
-          <p>Пишу тексты, читаю лекции о музыке и кошках (^ↀᴥↀ^), выступаю на конференциях и телевидении, этот сайт сделал сам.</p>
+<body id="top">
+
+<header class="band band--top micro">
+  <span>Сайт Валерия Печейкина</span>
+</header>
+
+<main class="page">
+
+  <!-- АФИША -->
+  <section class="poster">
+    <div>
+      <h1 class="name">Валерий<br>Печейкин</h1>
+      <ul class="roles">
+        <li>писатель</li>
+        <li>драматург</li>
+        <li>лектор</li>
+      </ul>
+    </div>
+
+    <div class="poster__eye">
+      <div class="orbit" aria-hidden="true">
+        <div class="eye">
+          <div class="iris"></div>
+          <div class="pupil"></div>
+          <div class="gloss"></div>
         </div>
       </div>
+    </div>
 
-      <div class="small">кино · театр · музыка · искусство</div>
+    <div class="poster__foot">
+      <p class="about">Пишу тексты, читаю лекции о музыке и кошках <span class="cat-face">(^ↀᴥↀ^)</span>, выступаю на конференциях и телевидении. Этот сайт сделал сам.</p>
+      <div class="credits micro">
+        <span>кино · театр · музыка · искусство</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- АРХИВ -->
+  <div class="archive">
+
+    <section class="section" id="novoe">
+      <div class="section__head">
+        <span class="section__num">01</span>
+        <h2 class="section__name">Новое</h2>
+      </div>
+
+      <article class="news">
+        <figure>
+          <img src="images/news/public-reading-bengali-book.jpg"
+               width="850" height="650" loading="eager" decoding="async"
+               alt="Бенгальское издание пьесы «Публичное чтение»">
+          <figcaption>Bhasha Samsad, Калькутта. Перевод: д-р Смита Сенгупта</figcaption>
+        </figure>
+        <div>
+          <span class="flag">новое</span>
+          <h3>«Публичное чтение» вышло на бенгальском языке</h3>
+          <p>В Калькутте опубликован бенгальский перевод моей пьесы «Публичное чтение». Книгу выпустило издательство Bhasha Samsad, перевод выполнила доктор Смита Сенгупта.</p>
+          <p>Пьеса была написана в 2013 году для режиссёра Дениса Азарова и поставлена им в Библиотеке СТД в рамках проекта «Открытая сцена».</p>
+          <p>В рецензии журнала East India Story пьеса названа произведением «о кризисе и будущем библиотек», которое показывает, как вернуть жизнь в опустевшие читальные залы.</p>
+          <a class="more" href="https://eastindiastory.com/%E0%A6%9C%E0%A6%A8%E0%A6%B8%E0%A6%AE%E0%A6%95%E0%A7%8D%E0%A6%B7%E0%A7%87-%E0%A6%AA%E0%A6%BE%E0%A6%A0-%E0%A6%AD%E0%A7%8D%E0%A6%AF%E0%A6%BE%E0%A6%B2%E0%A7%87%E0%A6%B0%E0%A6%BF-%E0%A6%AA%E0%A7%87/" target="_blank" rel="noopener noreferrer">Читать рецензию →</a>
+        </div>
+      </article>
     </section>
 
-    <section class="content">
-      
-<div class="block news-block">
-<div class="section-title"><span>новости</span><span>01</span></div>
-<img class="news-image" src="images/news/public-reading-bengali-book.jpg" alt="Бенгальское издание пьесы «Публичное чтение»">
-<div class="news-badge">ПЕРЕВОД</div>
-<h2 class="news-title">«Публичное чтение» вышло на бенгальском языке</h2>
-<p class="news-text">В Калькутте опубликован бенгальский перевод моей пьесы «Публичное чтение». Книгу выпустило издательство Bhasha Samsad, перевод выполнила доктор Смита Сенгупта. В рецензии журнала East India Story пьеса названа произведением «о кризисе и будущем библиотек», которое показывает, как можно вернуть жизнь в опустевшие читальные залы.</p>
-<p><a class="news-link" href="https://eastindiastory.com/%E0%A6%9C%E0%A6%A8%E0%A6%B8%E0%A6%AE%E0%A6%95%E0%A7%8D%E0%A6%B7%E0%A7%87-%E0%A6%AA%E0%A6%BE%E0%A6%A0-%E0%A6%AD%E0%A7%8D%E0%A6%AF%E0%A6%BE%E0%A6%B2%E0%A7%87%E0%A6%B0%E0%A6%BF-%E0%A6%AA%E0%A7%87/" target="_blank">Читать рецензию →</a></p>
-</div>
-<div class="block">
-        <div class="section-title"><span>актуальное</span><span>02</span></div>
-        <div class="items">
-          <article class="item">
-            <div class="num">ТЕАТР</div>
-            <div class="item-body">
-              <h3>Пьесы, либретто</h3>
-              <div class="item-entries">
-                <a href="https://bolshoi.ru/performances/ballet/the-queen-of-spades" target="_blank" rel="noopener noreferrer">«Пиковая дама» (Большой театр)</a>
-                <a href="https://praktikatheatre.ru/events/beethoven" target="_blank" rel="noopener noreferrer">«Бетховен» (театр «Практика»)</a>
-                <a href="https://teatrgogolya.ru/performances/devyat" target="_blank" rel="noopener noreferrer">«Девять» (Театр Гоголя)</a>
-              </div>
-            </div>
-          </article>
-          <article class="item">
-            <div class="num">КИНО</div>
-            <div class="item-body">
-              <h3>Сценарии к фильмам</h3>
-              <div class="item-entries">
-                <a href="https://www.kinopoisk.ru/film/1042556/" target="_blank" rel="noopener noreferrer">«Кислота»</a>
-                <a href="https://www.kinopoisk.ru/film/661124/" target="_blank" rel="noopener noreferrer">«Дирижёр»</a>
-              </div>
-            </div>
-          </article>
-          <article class="item">
-            <div class="num">КНИГИ</div>
-            <div class="item-body">
-              <h3>«Пушкин, помоги!»</h3>
-              <p>Книга о русской литературе от Пушкина до Кафки.</p>
-              <div class="item-refs">
-                <a href="https://ozon.ru/t/Asi9Dmd" target="_blank" rel="noopener noreferrer">Ozon</a>
-                <a href="https://www.wildberries.ru/catalog/157368619/detail.aspx" target="_blank" rel="noopener noreferrer">Wildberries</a>
-              </div>
-            </div>
-          </article>
-          <article class="item">
-            <div class="num">МЕДИА</div>
-            <div class="item-body">
-              <h3>Избранные тексты</h3>
-              <p>Эссе, рассказы и колонки в медиа.</p>
-              <div class="item-refs">
-                <a href="https://esquire.ru/letters/275793-rabota-fedota-5-korotkih-rasskazov-valeriya-pecheykina-geroyami-kotoryh-stali-kak-proizvoditeli-tak-i-sredstva-proizvodstva/" target="_blank" rel="noopener noreferrer">«Работа Федота»</a>
-                <a href="https://www.pravilamag.ru/letters/193703-seriya-korotkih-rasskazov-valeriya-pecheykina-rosgosvirus-v-kotoryh-mir-posle-pandemii-stanovitsya-voploshcheniem-byurokratii/" target="_blank" rel="noopener noreferrer">«Росгосвирус»</a>
-                <a href="https://moskvichmag.ru/tag/%D0%B2%D0%B0%D0%BB%D0%B5%D1%80%D0%B8%D0%B9-%D0%BF%D0%B5%D1%87%D0%B5%D0%B9%D0%BA%D0%B8%D0%BD/" target="_blank" rel="noopener noreferrer">Москвич Mag</a>
-              </div>
-            </div>
-          </article>
-          <article class="item">
-            <div class="num">ПОДКАСТ</div>
-            <div class="item-body">
-              <h3><a href="https://listay-vpravo.mave.digital/" target="_blank" rel="noopener noreferrer">«Листай вправо»</a></h3>
-              <p>Подкаст, в котором я рассказывал о нон-фикшн литературе.</p>
-            </div>
-          </article>
-        </div>
+    <section class="section" id="raboty">
+      <div class="section__head">
+        <span class="section__num">02</span>
+        <h2 class="section__name">Работы</h2>
+        <span class="section__count">10 записей</span>
       </div>
 
-      <div class="block">
-        <div class="section-title"><span>лекции</span><span>03</span></div>
-        <div class="items">
-          <article class="item">
-            <div class="num">ЦЕНТР «ЗОТОВ»</div>
-            <div>
-              <h3>О конструктивистах и котах</h3>
-              <p>«Красный смех», «Музыка машин: слушай и работай», «Маяковский и материя», «Как Пушкин стал салатом», «С хлебом (не) играют», «Смешная любовь»</p>
-            </div>
-          </article>
-          <article class="item">
-            <div class="num">ВДНХ</div>
-            <div>
-              <h3>О музыке и мыслителях</h3>
-              <p>«Ницше», «Кафка», «Бетховен», «Малер», «Шостакович», «Шнитке», «Адамс, Мартынов, Гонзалес»</p>
-            </div>
-          </article>
+      <article class="row row--link">
+        <div class="row__meta">
+          <span class="rubric">подкаст</span>
+          <span class="year">2023–2024</span>
         </div>
-      </div>
-
-      <div class="block">
-        <div class="section-title"><span>социальные сети</span><span>04</span></div>
-        <div class="items">
-          <article class="item">
-            <div class="num">ТЕЛЕГРАМ-КАНАЛ</div>
-            <div class="item-body">
-              <h3><a href="https://t.me/gregor_zamza" target="_blank" rel="noopener noreferrer">«Злой мальчик»</a></h3>
-            </div>
-          </article>
-        </div>
-      </div>
-
-      <div class="block contact">
         <div>
-          <div class="section-title"><span>контакты</span><span>05</span></div>
-          <p style="margin:0;font-size:22px;line-height:1.35;letter-spacing:-.02em;">
-            <a href="mailto:valeriy.pecheykin@gmail.com">valeriy.pecheykin@gmail.com</a>
+          <h3><a href="https://listay-vpravo.mave.digital/" target="_blank" rel="noopener noreferrer">«Листай вправо»</a></h3>
+          <p class="row__note">Подкаст, в котором я рассказывал о нон-фикшн литературе.</p>
+        </div>
+        <div class="row__mark" aria-hidden="true">↗</div>
+      </article>
+
+      <article class="row row--link">
+        <div class="row__meta">
+          <span class="rubric">театр</span>
+          <span class="year">2023</span>
+        </div>
+        <div>
+          <h3><a href="https://bolshoi.ru/performances/ballet/the-queen-of-spades" target="_blank" rel="noopener noreferrer">«Пиковая дама»</a></h3>
+          <p class="row__note">Либретто. Большой театр</p>
+        </div>
+        <div class="row__mark" aria-hidden="true">↗</div>
+      </article>
+
+      <article class="row">
+        <div class="row__meta">
+          <span class="rubric">книга</span>
+          <span class="year">2023</span>
+        </div>
+        <div>
+          <h3>«Пушкин, помоги!»</h3>
+          <p class="row__note">Книга о русской литературе от Пушкина до Кафки.</p>
+          <p class="row__refs">
+            <a href="https://ozon.ru/t/Asi9Dmd" target="_blank" rel="noopener noreferrer">Ozon</a>
+            <a href="https://www.wildberries.ru/catalog/157368619/detail.aspx" target="_blank" rel="noopener noreferrer">Wildberries</a>
           </p>
         </div>
-        <div class="cat-paw-mark" aria-hidden="true">
-          <div class="paw-toes">
-            <span class="toe toe-1"><i></i></span>
-            <span class="toe toe-2"><i></i></span>
-            <span class="toe toe-3"><i></i></span>
-            <span class="toe toe-4"><i></i></span>
-          </div>
-          <div class="paw-pad"></div>
+        <div class="row__mark" aria-hidden="true"></div>
+      </article>
+
+      <article class="row row--link">
+        <div class="row__meta">
+          <span class="rubric">текст</span>
+          <span class="year">2021</span>
+        </div>
+        <div>
+          <h3><a href="https://esquire.ru/letters/275793-rabota-fedota-5-korotkih-rasskazov-valeriya-pecheykina-geroyami-kotoryh-stali-kak-proizvoditeli-tak-i-sredstva-proizvodstva/" target="_blank" rel="noopener noreferrer">«Работа Федота»</a></h3>
+          <p class="row__note">Пять коротких рассказов. Esquire</p>
+        </div>
+        <div class="row__mark" aria-hidden="true">↗</div>
+      </article>
+
+      <article class="row row--link">
+        <div class="row__meta">
+          <span class="rubric">текст</span>
+          <span class="year">2020</span>
+        </div>
+        <div>
+          <h3><a href="https://www.pravilamag.ru/letters/193703-seriya-korotkih-rasskazov-valeriya-pecheykina-rosgosvirus-v-kotoryh-mir-posle-pandemii-stanovitsya-voploshcheniem-byurokratii/" target="_blank" rel="noopener noreferrer">«Росгосвирус»</a></h3>
+          <p class="row__note">Серия рассказов о мире после пандемии. «Правила жизни»</p>
+        </div>
+        <div class="row__mark" aria-hidden="true">↗</div>
+      </article>
+
+      <article class="row row--link">
+        <div class="row__meta">
+          <span class="rubric">текст</span>
+          <span class="year">2019</span>
+        </div>
+        <div>
+          <h3><a href="https://moskvichmag.ru/tag/%D0%B2%D0%B0%D0%BB%D0%B5%D1%80%D0%B8%D0%B9-%D0%BF%D0%B5%D1%87%D0%B5%D0%B9%D0%BA%D0%B8%D0%BD/" target="_blank" rel="noopener noreferrer">Москвич Mag</a></h3>
+          <p class="row__note">Эссе и колонки</p>
+        </div>
+        <div class="row__mark" aria-hidden="true">↗</div>
+      </article>
+
+      <article class="row row--link">
+        <div class="row__meta">
+          <span class="rubric">кино</span>
+          <span class="year">2018</span>
+        </div>
+        <div>
+          <h3><a href="https://www.kinopoisk.ru/film/1042556/" target="_blank" rel="noopener noreferrer">«Кислота»</a></h3>
+          <p class="row__note">Сценарий</p>
+        </div>
+        <div class="row__mark" aria-hidden="true">↗</div>
+      </article>
+
+      <article class="row row--link">
+        <div class="row__meta">
+          <span class="rubric">театр</span>
+          <span class="year">2017</span>
+        </div>
+        <div>
+          <h3><a href="https://praktikatheatre.ru/events/beethoven" target="_blank" rel="noopener noreferrer">«Бетховен»</a></h3>
+          <p class="row__note">Пьеса. Театр «Практика»</p>
+        </div>
+        <div class="row__mark" aria-hidden="true">↗</div>
+      </article>
+
+      <article class="row row--link">
+        <div class="row__meta">
+          <span class="rubric">театр</span>
+          <span class="year">2014</span>
+        </div>
+        <div>
+          <h3><a href="https://teatrgogolya.ru/performances/devyat" target="_blank" rel="noopener noreferrer">«Девять»</a></h3>
+          <p class="row__note">Пьеса. Театр Гоголя</p>
+        </div>
+        <div class="row__mark" aria-hidden="true">↗</div>
+      </article>
+
+      <article class="row row--link">
+        <div class="row__meta">
+          <span class="rubric">кино</span>
+          <span class="year">2012</span>
+        </div>
+        <div>
+          <h3><a href="https://www.kinopoisk.ru/film/661124/" target="_blank" rel="noopener noreferrer">«Дирижёр»</a></h3>
+          <p class="row__note">Сценарий</p>
+        </div>
+        <div class="row__mark" aria-hidden="true">↗</div>
+      </article>
+    </section>
+
+    <section class="section" id="lekcii">
+      <div class="section__head">
+        <span class="section__num">03</span>
+        <h2 class="section__name">Лекции</h2>
+        <span class="section__count">два цикла</span>
+      </div>
+
+      <article class="row">
+        <div class="row__meta">
+          <span class="rubric">лекции</span>
+          <span class="year">цикл</span>
+        </div>
+        <div>
+          <h3>О конструктивистах и котах</h3>
+          <p class="row__note">Центр «Зотов»</p>
+          <p class="programme">«Красный смех» · «Музыка машин: слушай и работай» · «Маяковский и материя» · «Как Пушкин стал салатом» · «С хлебом (не) играют» · «Смешная любовь»</p>
+        </div>
+        <div class="row__mark" aria-hidden="true"></div>
+      </article>
+
+      <article class="row">
+        <div class="row__meta">
+          <span class="rubric">лекции</span>
+          <span class="year">цикл</span>
+        </div>
+        <div>
+          <h3>О музыке и мыслителях</h3>
+          <p class="row__note">«Рабочий и Колхозница»</p>
+          <p class="programme">«Ницше» · «Кафка» · «Бетховен» · «Малер» · «Шостакович» · «Шнитке» · «Адамс, Мартынов, Гонзалес»</p>
+        </div>
+        <div class="row__mark" aria-hidden="true"></div>
+      </article>
+    </section>
+
+    <section class="section" id="telegram">
+      <div class="section__head">
+        <span class="section__num">04</span>
+        <h2 class="section__name">Телеграм</h2>
+      </div>
+
+      <article class="row row--link">
+        <div class="row__meta">
+          <span class="rubric">канал</span>
+        </div>
+        <div>
+          <h3><a href="https://t.me/gregor_zamza" target="_blank" rel="noopener noreferrer">«Злой мальчик»</a></h3>
+          <p class="row__note">Телеграм-канал</p>
+        </div>
+        <div class="row__mark" aria-hidden="true">↗</div>
+      </article>
+    </section>
+
+    <section class="section" id="kontakty">
+      <div class="section__head">
+        <span class="section__num">05</span>
+        <h2 class="section__name">Контакты</h2>
+      </div>
+
+      <article class="row">
+        <div class="row__meta">
+          <span class="rubric">почта</span>
+        </div>
+        <div>
+          <p class="mail"><a href="mailto:valeriy.pecheykin@gmail.com">valeriy.pecheykin@gmail.com</a></p>
+        </div>
+        <div class="row__mark" aria-hidden="true"></div>
+      </article>
+
+      <div class="stamp">
+        <div class="paw" aria-hidden="true">
+        <div class="toes">
+          <span class="toe toe-1"><i></i></span>
+          <span class="toe toe-2"><i></i></span>
+          <span class="toe toe-3"><i></i></span>
+          <span class="toe toe-4"><i></i></span>
+        </div>
+          <div class="pad"></div>
         </div>
       </div>
     </section>
-  </main>
+
+  </div>
+</main>
+
+<footer class="band band--bottom micro">
+  <span>Валерий Печейкин · pecheyk.in</span>
+  <span><a href="#top">Наверх ↑</a></span>
+</footer>
+
+<script>
+/* Зрачок медленно смотрит на курсор. Только мышь, только без reduce-motion. */
+(function(){
+  var eye = document.querySelector('.eye');
+  var pupil = document.querySelector('.pupil');
+  if(!eye || !pupil) return;
+  if(!window.matchMedia('(pointer:fine)').matches) return;
+  if(window.matchMedia('(prefers-reduced-motion:reduce)').matches) return;
+
+  var raf = null;
+  window.addEventListener('pointermove', function(e){
+    if(raf) return;
+    raf = requestAnimationFrame(function(){
+      raf = null;
+      var r = eye.getBoundingClientRect();
+      if(!r.width) return;
+      var dx = (e.clientX - (r.left + r.width/2)) / r.width;
+      var dy = (e.clientY - (r.top + r.height/2)) / r.height;
+      var lim = r.width * 0.11;
+      var k = Math.min(1, Math.hypot(dx, dy) / 1.6);
+      var a = Math.atan2(dy, dx);
+      pupil.style.setProperty('--px', (Math.cos(a) * lim * k).toFixed(1) + 'px');
+      pupil.style.setProperty('--py', (Math.sin(a) * lim * k).toFixed(1) + 'px');
+    });
+  }, {passive:true});
+})();
+</script>
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Person",
+  "name":"Валерий Печейкин",
+  "url":"https://pecheyk.in",
+  "email":"valeriy.pecheykin@gmail.com",
+  "jobTitle":["Писатель","Драматург","Сценарист","Лектор"],
+  "description":"Писатель, драматург, сценарист и лектор.",
+  "sameAs":["https://t.me/gregor_zamza"]
+}
+</script>
+
 </body>
 </html>
