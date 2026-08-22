@@ -117,7 +117,11 @@ img{display:block;max-width:100%}
   padding:14px 0 12px;
 }
 
-.band--top{border-bottom:1px solid var(--rule)}
+.band--top{
+  height:41px;
+  padding:0;
+  border-bottom:1px solid var(--rule);
+}
 
 .band--bottom{
   border-top:1px solid var(--rule);
@@ -204,81 +208,94 @@ img{display:block;max-width:100%}
   padding-top:11px;
 }
 
-/* глаз */
-.orbit{
+/* кот, выглядывающий из-за границы колонки */
+.cat{
   position:absolute;
   z-index:1;
-  width:44vw;
-  height:44vw;
-  right:-32vw;
-  top:24vh;
-  border:1px solid var(--rule);
-  border-radius:50%;
+  width:min(23vw,33vh);
+  height:min(23vw,33vh);
+  right:-7vw;
+  bottom:12%;
   pointer-events:none;
-  transform-origin:50% 50%;
-  animation:orbit 34s ease-in-out infinite alternate;
 }
+
+.cat-head{
+  position:absolute;
+  inset:0;
+  border-radius:50%;
+  background:var(--ink);
+}
+
+.cat-ear{
+  position:absolute;
+  left:0;
+  top:-28%;
+  width:38%;
+  height:60%;
+  background:var(--ink);
+  clip-path:polygon(37% 3%, 95% 57%, 10% 97%);
+}
+
+.cat-whisker{
+  position:absolute;
+  right:52%;
+  top:70%;
+  width:86%;
+  height:1px;
+  background:var(--ink);
+  transform-origin:100% 50%;
+}
+
+.cat-whisker.w1{transform:rotate(9deg)}
+.cat-whisker.w2{transform:rotate(-2deg)}
+.cat-whisker.w3{transform:rotate(-13deg)}
 
 .eye{
   position:absolute;
-  left:0;
-  top:50%;
-  width:13.5vw;
-  height:13.5vw;
-  transform:translate(-50%,-50%);
-  border-radius:50%;
-  border:clamp(4px,.42vw,7px) solid var(--ink);
-  overflow:hidden;
-  background:radial-gradient(circle at 44% 42%,#d8d07a 0%,#9aa85a 24%,#4f6f3f 56%,#22301c 100%);
+  left:17%;
+  top:31%;
+  width:36%;
+  height:24%;
+  background:var(--paper);
+  clip-path:polygon(
+    0% 50%, 4.5% 37.1%, 9.1% 28%, 13.6% 21.1%, 18.2% 15.5%, 22.7% 11.1%,
+    27.3% 7.5%, 31.8% 4.7%, 36.4% 2.6%, 40.9% 1.2%, 45.5% 0.3%, 50% 0%,
+    54.5% 0.3%, 59.1% 1.2%, 63.6% 2.6%, 68.2% 4.7%, 72.7% 7.5%, 77.3% 11.1%,
+    81.8% 15.5%, 86.4% 21.1%, 90.9% 28%, 95.5% 37.1%, 100% 50%, 95.5% 62.9%,
+    90.9% 72%, 86.4% 78.9%, 81.8% 84.5%, 77.3% 88.9%, 72.7% 92.5%, 68.2% 95.3%,
+    63.6% 97.4%, 59.1% 98.8%, 54.5% 99.7%, 50% 100%, 45.5% 99.7%, 40.9% 98.8%,
+    36.4% 97.4%, 31.8% 95.3%, 27.3% 92.5%, 22.7% 88.9%, 18.2% 84.5%, 13.6% 78.9%,
+    9.1% 72%, 4.5% 62.9%
+  );
 }
 
 .iris{
   position:absolute;
-  inset:0;
+  left:50%;
+  top:50%;
+  height:78%;
+  aspect-ratio:1;
+  transform:translate(-50%,-50%);
   border-radius:50%;
-  background:repeating-conic-gradient(from 0deg,
-    rgba(255,255,180,.4) 0deg,
-    rgba(30,60,20,.22) 3deg,
-    rgba(180,150,40,.3) 6deg);
-  mix-blend-mode:multiply;
-  opacity:.6;
+  background:radial-gradient(circle,#a9b45c 0%,#6d8244 58%,#33452a 100%);
 }
 
 .pupil{
   position:absolute;
   left:50%;
   top:50%;
-  width:11%;
-  height:66%;
-  background:#050505;
+  width:22%;
+  height:76%;
+  background:#0b0d09;
   border-radius:50%;
   transform:translate(calc(-50% + var(--px,0px)),calc(-50% + var(--py,0px)));
   transition:transform 1.1s cubic-bezier(.22,.61,.36,1);
   animation:pupil 9s ease-in-out infinite;
-  z-index:2;
-}
-
-.gloss{
-  position:absolute;
-  left:17%;
-  top:16%;
-  width:29%;
-  height:21%;
-  border-radius:50%;
-  background:rgba(255,255,255,.22);
-  filter:blur(2px);
-  transform:rotate(-25deg);
-  z-index:3;
-}
-
-@keyframes orbit{
-  from{transform:rotate(-7deg)}
-  to{transform:rotate(9deg)}
 }
 
 @keyframes pupil{
-  0%,100%{width:10%}
-  50%{width:14.5%}
+  0%,100%{width:20%}
+  50%{width:28%}
 }
 
 /* 5. архив ----------------------------------------------------- */
@@ -310,14 +327,6 @@ img{display:block;max-width:100%}
   font-size:12px;
   letter-spacing:.22em;
   text-transform:uppercase;
-}
-
-.section__count{
-  margin-left:auto;
-  font-size:var(--micro);
-  letter-spacing:.16em;
-  text-transform:uppercase;
-  color:var(--muted);
 }
 
 /* новость */
@@ -583,23 +592,20 @@ img{display:block;max-width:100%}
     font-size:17px;
   }
 
-  /* глаз становится печатью в конце афиши */
-  .poster__eye{
+  /* кот выглядывает из правого края экрана */
+  .poster__cat{
     position:relative;
-    height:70vw;
+    height:64vw;
     margin:0 calc(var(--pad)*-1) 0 0;
     overflow:hidden;
   }
 
-  .orbit{
-    width:66vw;
-    height:66vw;
-    right:-10vw;
-    top:2vw;
-    animation-duration:44s;
+  .cat{
+    width:42vw;
+    height:42vw;
+    right:-11vw;
+    bottom:6%;
   }
-
-  .eye{width:22vw;height:22vw}
 
   .credits{
     flex-direction:column;
@@ -635,12 +641,12 @@ img{display:block;max-width:100%}
 }
 
 @media (min-width:901px){
-  .poster__eye{display:contents}
+  .poster__cat{display:contents}
 }
 
 /* 8. движение и печать ----------------------------------------- */
 @media (prefers-reduced-motion:reduce){
-  .orbit,.pupil,.toe i{animation:none}
+  .pupil,.toe i{animation:none}
   .pupil{transition:none}
   html{scroll-behavior:auto}
 }
@@ -648,7 +654,7 @@ img{display:block;max-width:100%}
 html{scroll-behavior:smooth}
 
 @media print{
-  .orbit,.paw,.band--bottom{display:none}
+  .cat,.paw,.band--bottom{display:none}
   body{padding:0;background:#fff}
   .poster{position:static;min-height:0}
   .archive{border:none;padding-left:0}
@@ -658,9 +664,7 @@ html{scroll-behavior:smooth}
 
 <body id="top">
 
-<header class="band band--top micro">
-  <span>Сайт Валерия Печейкина</span>
-</header>
+<div class="band band--top"></div>
 
 <main class="page">
 
@@ -675,13 +679,18 @@ html{scroll-behavior:smooth}
       </ul>
     </div>
 
-    <div class="poster__eye">
-      <div class="orbit" aria-hidden="true">
-        <div class="eye">
-          <div class="iris"></div>
-          <div class="pupil"></div>
-          <div class="gloss"></div>
-        </div>
+    <div class="poster__cat">
+      <div class="cat" aria-hidden="true">
+        <span class="cat-ear"></span>
+        <span class="cat-head"></span>
+        <span class="cat-whisker w1"></span>
+        <span class="cat-whisker w2"></span>
+        <span class="cat-whisker w3"></span>
+        <span class="eye">
+          <span class="iris">
+            <span class="pupil"></span>
+          </span>
+        </span>
       </div>
     </div>
 
@@ -724,7 +733,6 @@ html{scroll-behavior:smooth}
       <div class="section__head">
         <span class="section__num">02</span>
         <h2 class="section__name">Работы</h2>
-        <span class="section__count">10 записей</span>
       </div>
 
       <article class="row row--link">
@@ -856,7 +864,6 @@ html{scroll-behavior:smooth}
       <div class="section__head">
         <span class="section__num">03</span>
         <h2 class="section__name">Лекции</h2>
-        <span class="section__count">два цикла</span>
       </div>
 
       <article class="row">
@@ -942,11 +949,11 @@ html{scroll-behavior:smooth}
 </footer>
 
 <script>
-/* Зрачок медленно смотрит на курсор. Только мышь, только без reduce-motion. */
+/* Зрачок кота медленно смотрит на курсор. Только мышь, только без reduce-motion. */
 (function(){
-  var eye = document.querySelector('.eye');
+  var iris = document.querySelector('.iris');
   var pupil = document.querySelector('.pupil');
-  if(!eye || !pupil) return;
+  if(!iris || !pupil) return;
   if(!window.matchMedia('(pointer:fine)').matches) return;
   if(window.matchMedia('(prefers-reduced-motion:reduce)').matches) return;
 
@@ -955,11 +962,11 @@ html{scroll-behavior:smooth}
     if(raf) return;
     raf = requestAnimationFrame(function(){
       raf = null;
-      var r = eye.getBoundingClientRect();
+      var r = iris.getBoundingClientRect();
       if(!r.width) return;
       var dx = (e.clientX - (r.left + r.width/2)) / r.width;
       var dy = (e.clientY - (r.top + r.height/2)) / r.height;
-      var lim = r.width * 0.11;
+      var lim = r.width * 0.15;
       var k = Math.min(1, Math.hypot(dx, dy) / 1.6);
       var a = Math.atan2(dy, dx);
       pupil.style.setProperty('--px', (Math.cos(a) * lim * k).toFixed(1) + 'px');
