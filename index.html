@@ -1,35 +1,29 @@
 <!DOCTYPE html>
-<html lang="ru">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<html lang="ru"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Валерий Печейкин — писатель, драматург, лектор</title>
-
-<meta name="description" content="Валерий Печейкин — писатель, драматург, сценарист и лектор. Лекции, тексты, книги, театр, кино и контакты.">
-<meta name="author" content="Валерий Печейкин">
-<meta name="robots" content="index,follow">
-<meta name="theme-color" content="#f1ebe0">
-<link rel="canonical" href="https://pecheyk.in/">
-
-<meta property="og:title" content="Валерий Печейкин — писатель, драматург, лектор">
-<meta property="og:site_name" content="Валерий Печейкин">
-<meta property="og:description" content="Писатель, драматург, сценарист и лектор">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://pecheyk.in">
-<meta property="og:locale" content="ru_RU">
-<meta property="og:image" content="https://pecheyk.in/preview.jpg">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Валерий Печейкин — писатель, драматург, лектор">
-
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Валерий Печейкин — писатель, драматург, лектор">
-<meta name="twitter:description" content="Писатель, драматург, сценарист и лектор">
-<meta name="twitter:image" content="https://pecheyk.in/preview.jpg">
-
-<link rel="icon" href="favicon.svg" type="image/svg+xml">
-
+<meta content="Валерий Печейкин — писатель, драматург, сценарист и лектор. Лекции, тексты, книги, театр, кино и контакты." name="description"/>
+<meta content="Валерий Печейкин" name="author"/>
+<meta content="index,follow" name="robots"/>
+<meta content="#f1ebe0" name="theme-color"/>
+<link href="https://pecheyk.in/" rel="canonical"/>
+<meta content="Валерий Печейкин — писатель, драматург, лектор" property="og:title"/>
+<meta content="Валерий Печейкин" property="og:site_name"/>
+<meta content="Писатель, драматург, сценарист и лектор" property="og:description"/>
+<meta content="website" property="og:type"/>
+<meta content="https://pecheyk.in" property="og:url"/>
+<meta content="ru_RU" property="og:locale"/>
+<meta content="https://pecheyk.in/preview.jpg" property="og:image"/>
+<meta content="1200" property="og:image:width"/>
+<meta content="630" property="og:image:height"/>
+<meta content="Валерий Печейкин — писатель, драматург, лектор" property="og:image:alt"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="Валерий Печейкин — писатель, драматург, лектор" name="twitter:title"/>
+<meta content="Писатель, драматург, сценарист и лектор" name="twitter:description"/>
+<meta content="https://pecheyk.in/preview.jpg" name="twitter:image"/>
+<link href="favicon.svg" rel="icon" type="image/svg+xml"/>
 <style>
 /* ============================================================
    pecheyk.in — афиша и архив
@@ -57,6 +51,7 @@
   --gutter:clamp(26px,3.6vw,58px);
 
   --sans:"Helvetica Neue",-apple-system,BlinkMacSystemFont,Arial,"Liberation Sans",sans-serif;
+  --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 
   --micro:11px;
   --micro-track:.24em;
@@ -217,6 +212,7 @@ img{display:block;max-width:100%}
   right:-7vw;
   bottom:12%;
   pointer-events:none;
+  transform-origin: 50% 100%;
 }
 
 .cat-head{
@@ -224,6 +220,12 @@ img{display:block;max-width:100%}
   inset:0;
   border-radius:50%;
   background:var(--ink);
+  animation:breathe 6s ease-in-out infinite;
+}
+
+@keyframes breathe {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.01); }
 }
 
 .cat-ear{
@@ -304,29 +306,28 @@ img{display:block;max-width:100%}
   padding:clamp(26px,5vh,64px) 0 0 var(--gutter);
 }
 
-.section{position:relative}
+.section{
+  position:relative;
+}
 
-.section+.section{margin-top:clamp(44px,6.5vh,86px)}
+.section+.section{margin-top:clamp(80px,12vh,160px)} /* Increased breath */
 
 .section__head{
   display:flex;
   align-items:baseline;
   gap:14px;
-  border-bottom:1px solid var(--rule);
+  border-bottom:1px solid var(--rule); /* Primary divider */
   padding-bottom:10px;
   margin-bottom:clamp(18px,2.4vh,28px);
-}
-
-.section__num{
-  font-size:var(--micro);
-  letter-spacing:.1em;
-  color:var(--accent);
 }
 
 .section__name{
   font-size:12px;
   letter-spacing:.22em;
   text-transform:uppercase;
+  display:flex;
+  align-items:center;
+  gap:8px;
 }
 
 /* новость */
@@ -401,13 +402,17 @@ img{display:block;max-width:100%}
   align-items:start;
   padding:15px 10px 16px;
   margin:0 -10px;
-  border-bottom:1px solid var(--rule-soft);
-  transition:background-color .2s ease;
+  border-bottom:1px solid var(--rule-soft); /* Secondary dividers */
+  transition:background-color .3s ease, transform .3s ease;
+  will-change: transform, background-color;
 }
 
 .row:last-child{border-bottom:none}
 
-.row:hover{background:var(--paper-warm)}
+.row:hover{
+  background:var(--paper-warm);
+  transform: translateX(6px);
+}
 
 .row__meta{
   display:flex;
@@ -417,9 +422,10 @@ img{display:block;max-width:100%}
 }
 
 .rubric{
-  font-size:10.5px;
-  letter-spacing:.16em;
+  font-size:11px;
+  letter-spacing:.15em;
   text-transform:uppercase;
+  font-variant: small-caps;
   color:var(--accent);
 }
 
@@ -434,6 +440,16 @@ img{display:block;max-width:100%}
   line-height:1.08;
   letter-spacing:-.028em;
 }
+
+/* Key Works highlight */
+.row.key-work h3 {
+  font-size: clamp(26px, 2.2vw, 32px);
+}
+.row.key-work {
+  padding-top: 24px;
+  padding-bottom: 25px;
+}
+
 
 .row h3 a{border-bottom:1px solid transparent}
 
@@ -465,10 +481,14 @@ img{display:block;max-width:100%}
   color:var(--muted);
   opacity:0;
   transform:translateX(-3px);
-  transition:opacity .2s ease,transform .2s ease;
+  transition:opacity .3s ease,transform .3s ease, color .3s ease;
 }
 
-.row:hover .row__mark{opacity:1;transform:translateX(0)}
+.row:hover .row__mark{
+  opacity:1;
+  transform:translateX(0);
+  color: var(--accent);
+}
 
 /* вся строка кликабельна, если в ней одна ссылка */
 .row--link h3 a::after{
@@ -617,7 +637,7 @@ img{display:block;max-width:100%}
     border-left:none;
     padding:clamp(30px,5vh,44px) 0 0;
   }
-
+  
   .news{grid-template-columns:1fr;gap:16px}
 
 
@@ -626,6 +646,10 @@ img{display:block;max-width:100%}
     gap:0 12px;
     padding:14px 0 15px;
     margin:0;
+  }
+  
+  .row:hover {
+    transform: none; /* Disable horizontal slide on mobile */
   }
 
   .row__meta{
@@ -649,6 +673,7 @@ img{display:block;max-width:100%}
   .pupil,.toe i{animation:none}
   .pupil{transition:none}
   html{scroll-behavior:auto}
+  .row:hover{transform:none}
 }
 
 html{scroll-behavior:smooth}
@@ -658,296 +683,306 @@ html{scroll-behavior:smooth}
   body{padding:0;background:#fff}
   .poster{position:static;min-height:0}
   .archive{border:none;padding-left:0}
+  .row:hover{transform:none;background:none}
 }
 </style>
-</head>
+<style>
+/* Phase 3: Subtle Life - Cat Animations */
+@keyframes blink {
+  0%, 96%, 100% { clip-path: polygon(0% 50%, 4.5% 37.1%, 9.1% 28%, 13.6% 21.1%, 18.2% 15.5%, 22.7% 11.1%, 27.3% 7.5%, 31.8% 4.7%, 36.4% 2.6%, 40.9% 1.2%, 45.5% 0.3%, 50% 0%, 54.5% 0.3%, 59.1% 1.2%, 63.6% 2.6%, 68.2% 4.7%, 72.7% 7.5%, 77.3% 11.1%, 81.8% 15.5%, 86.4% 21.1%, 90.9% 28%, 95.5% 37.1%, 100% 50%, 95.5% 62.9%, 90.9% 72%, 86.4% 78.9%, 81.8% 84.5%, 77.3% 88.9%, 72.7% 92.5%, 68.2% 95.3%, 63.6% 97.4%, 59.1% 98.8%, 54.5% 99.7%, 50% 100%, 45.5% 99.7%, 40.9% 98.8%, 36.4% 97.4%, 31.8% 95.3%, 27.3% 92.5%, 22.7% 88.9%, 18.2% 84.5%, 13.6% 78.9%, 9.1% 72%, 4.5% 62.9%); }
+  98% { clip-path: polygon(0% 50%, 100% 50%, 100% 55%, 0% 55%); }
+}
 
+.eye {
+  animation: blink 10s infinite ease-in-out;
+}
+
+.cat {
+  transition: transform 0.6s cubic-bezier(0.22, 0.61, 0.36, 1);
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .eye { animation: none; }
+  .cat { transition: none; }
+}
+</style></head>
 <body id="top">
-
 <div class="band band--top"></div>
-
 <main class="page">
-
-  <!-- АФИША -->
-  <section class="poster">
-    <div>
-      <h1 class="name">Валерий<br>Печейкин</h1>
-      <ul class="roles">
-        <li>писатель</li>
-        <li>драматург</li>
-        <li>лектор</li>
-      </ul>
-    </div>
-
-    <div class="poster__cat">
-      <div class="cat" aria-hidden="true">
-        <span class="cat-ear"></span>
-        <span class="cat-head"></span>
-        <span class="cat-whisker w1"></span>
-        <span class="cat-whisker w2"></span>
-        <span class="cat-whisker w3"></span>
-        <span class="eye">
-          <span class="iris">
-            <span class="pupil"></span>
-          </span>
-        </span>
-      </div>
-    </div>
-
-    <div class="poster__foot">
-      <p class="about">Пишу тексты, читаю лекции о музыке и кошках <span class="cat-face">(^ↀᴥↀ^)</span>, выступаю на конференциях и телевидении. Этот сайт сделал сам.</p>
-      <div class="credits micro">
-        <span>кино · театр · музыка · искусство</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- АРХИВ -->
-  <div class="archive">
-
-    <section class="section" id="novoe">
-      <div class="section__head">
-        <span class="section__num">01</span>
-        <h2 class="section__name">Новое</h2>
-      </div>
-
-      <article class="news">
-        <figure>
-          <img src="images/news/public-reading-bengali-book.jpg"
-               width="850" height="650" loading="eager" decoding="async"
-               alt="Бенгальское издание пьесы «Публичное чтение»">
-          <figcaption>Bhasha Samsad, Калькутта. Перевод: д-р Смита Сенгупта</figcaption>
-        </figure>
-        <div>
-          <span class="flag">новое</span>
-          <h3>«Публичное чтение» вышло на бенгальском языке</h3>
-          <p>В Калькутте опубликован бенгальский перевод моей пьесы «Публичное чтение». Книгу выпустило издательство Bhasha Samsad, перевод выполнила доктор Смита Сенгупта.</p>
-          <p>Пьеса была написана в 2013 году для режиссёра Дениса Азарова и поставлена им в Библиотеке СТД в рамках проекта «Открытая сцена».</p>
-          <p>В рецензии журнала East India Story пьеса названа произведением «о кризисе и будущем библиотек», которое показывает, как вернуть жизнь в опустевшие читальные залы.</p>
-          <a class="more" href="https://eastindiastory.com/%E0%A6%9C%E0%A6%A8%E0%A6%B8%E0%A6%AE%E0%A6%95%E0%A7%8D%E0%A6%B7%E0%A7%87-%E0%A6%AA%E0%A6%BE%E0%A6%A0-%E0%A6%AD%E0%A7%8D%E0%A6%AF%E0%A6%BE%E0%A6%B2%E0%A7%87%E0%A6%B0%E0%A6%BF-%E0%A6%AA%E0%A7%87/" target="_blank" rel="noopener noreferrer">Читать рецензию →</a>
-        </div>
-      </article>
-    </section>
-
-    <section class="section" id="raboty">
-      <div class="section__head">
-        <span class="section__num">02</span>
-        <h2 class="section__name">Работы</h2>
-      </div>
-
-      <article class="row row--link">
-        <div class="row__meta">
-          <span class="rubric">подкаст</span>
-          <span class="year">2023–2024</span>
-        </div>
-        <div>
-          <h3><a href="https://listay-vpravo.mave.digital/" target="_blank" rel="noopener noreferrer">«Листай вправо»</a></h3>
-          <p class="row__note">Подкаст, в котором я рассказывал о нон-фикшн литературе.</p>
-        </div>
-        <div class="row__mark" aria-hidden="true">↗</div>
-      </article>
-
-      <article class="row row--link">
-        <div class="row__meta">
-          <span class="rubric">театр</span>
-          <span class="year">2023</span>
-        </div>
-        <div>
-          <h3><a href="https://bolshoi.ru/performances/ballet/the-queen-of-spades" target="_blank" rel="noopener noreferrer">«Пиковая дама»</a></h3>
-          <p class="row__note">Либретто. Большой театр</p>
-        </div>
-        <div class="row__mark" aria-hidden="true">↗</div>
-      </article>
-
-      <article class="row">
-        <div class="row__meta">
-          <span class="rubric">книга</span>
-          <span class="year">2023</span>
-        </div>
-        <div>
-          <h3>«Пушкин, помоги!»</h3>
-          <p class="row__note">Книга о русской литературе от Пушкина до Кафки.</p>
-          <p class="row__refs">
-            <a href="https://ozon.ru/t/Asi9Dmd" target="_blank" rel="noopener noreferrer">Ozon</a>
-            <a href="https://www.wildberries.ru/catalog/157368619/detail.aspx" target="_blank" rel="noopener noreferrer">Wildberries</a>
-          </p>
-        </div>
-        <div class="row__mark" aria-hidden="true"></div>
-      </article>
-
-      <article class="row row--link">
-        <div class="row__meta">
-          <span class="rubric">текст</span>
-          <span class="year">2021</span>
-        </div>
-        <div>
-          <h3><a href="https://esquire.ru/letters/275793-rabota-fedota-5-korotkih-rasskazov-valeriya-pecheykina-geroyami-kotoryh-stali-kak-proizvoditeli-tak-i-sredstva-proizvodstva/" target="_blank" rel="noopener noreferrer">«Работа Федота»</a></h3>
-          <p class="row__note">Пять коротких рассказов. Esquire</p>
-        </div>
-        <div class="row__mark" aria-hidden="true">↗</div>
-      </article>
-
-      <article class="row row--link">
-        <div class="row__meta">
-          <span class="rubric">текст</span>
-          <span class="year">2020</span>
-        </div>
-        <div>
-          <h3><a href="https://www.pravilamag.ru/letters/193703-seriya-korotkih-rasskazov-valeriya-pecheykina-rosgosvirus-v-kotoryh-mir-posle-pandemii-stanovitsya-voploshcheniem-byurokratii/" target="_blank" rel="noopener noreferrer">«Росгосвирус»</a></h3>
-          <p class="row__note">Серия рассказов о мире после пандемии. «Правила жизни»</p>
-        </div>
-        <div class="row__mark" aria-hidden="true">↗</div>
-      </article>
-
-      <article class="row row--link">
-        <div class="row__meta">
-          <span class="rubric">текст</span>
-          <span class="year">2019</span>
-        </div>
-        <div>
-          <h3><a href="https://moskvichmag.ru/tag/%D0%B2%D0%B0%D0%BB%D0%B5%D1%80%D0%B8%D0%B9-%D0%BF%D0%B5%D1%87%D0%B5%D0%B9%D0%BA%D0%B8%D0%BD/" target="_blank" rel="noopener noreferrer">Москвич Mag</a></h3>
-          <p class="row__note">Эссе и колонки</p>
-        </div>
-        <div class="row__mark" aria-hidden="true">↗</div>
-      </article>
-
-      <article class="row row--link">
-        <div class="row__meta">
-          <span class="rubric">кино</span>
-          <span class="year">2018</span>
-        </div>
-        <div>
-          <h3><a href="https://www.kinopoisk.ru/film/1042556/" target="_blank" rel="noopener noreferrer">«Кислота»</a></h3>
-          <p class="row__note">Сценарий</p>
-        </div>
-        <div class="row__mark" aria-hidden="true">↗</div>
-      </article>
-
-      <article class="row row--link">
-        <div class="row__meta">
-          <span class="rubric">театр</span>
-          <span class="year">2017</span>
-        </div>
-        <div>
-          <h3><a href="https://praktikatheatre.ru/events/beethoven" target="_blank" rel="noopener noreferrer">«Бетховен»</a></h3>
-          <p class="row__note">Пьеса. Театр «Практика»</p>
-        </div>
-        <div class="row__mark" aria-hidden="true">↗</div>
-      </article>
-
-      <article class="row row--link">
-        <div class="row__meta">
-          <span class="rubric">театр</span>
-          <span class="year">2014</span>
-        </div>
-        <div>
-          <h3><a href="https://teatrgogolya.ru/performances/devyat" target="_blank" rel="noopener noreferrer">«Девять»</a></h3>
-          <p class="row__note">Пьеса. Театр Гоголя</p>
-        </div>
-        <div class="row__mark" aria-hidden="true">↗</div>
-      </article>
-
-      <article class="row row--link">
-        <div class="row__meta">
-          <span class="rubric">кино</span>
-          <span class="year">2012</span>
-        </div>
-        <div>
-          <h3><a href="https://www.kinopoisk.ru/film/661124/" target="_blank" rel="noopener noreferrer">«Дирижёр»</a></h3>
-          <p class="row__note">Сценарий</p>
-        </div>
-        <div class="row__mark" aria-hidden="true">↗</div>
-      </article>
-    </section>
-
-    <section class="section" id="lekcii">
-      <div class="section__head">
-        <span class="section__num">03</span>
-        <h2 class="section__name">Лекции</h2>
-      </div>
-
-      <article class="row">
-        <div class="row__meta">
-          <span class="rubric">лекции</span>
-          <span class="year">цикл</span>
-        </div>
-        <div>
-          <h3>О конструктивистах и котах</h3>
-          <p class="row__note">Центр «Зотов»</p>
-          <p class="programme">«Красный смех» · «Музыка машин: слушай и работай» · «Маяковский и материя» · «Как Пушкин стал салатом» · «С хлебом (не) играют» · «Смешная любовь»</p>
-        </div>
-        <div class="row__mark" aria-hidden="true"></div>
-      </article>
-
-      <article class="row">
-        <div class="row__meta">
-          <span class="rubric">лекции</span>
-          <span class="year">цикл</span>
-        </div>
-        <div>
-          <h3>О музыке и мыслителях</h3>
-          <p class="row__note">«Рабочий и Колхозница»</p>
-          <p class="programme">«Ницше» · «Кафка» · «Бетховен» · «Малер» · «Шостакович» · «Шнитке» · «Адамс, Мартынов, Гонзалес»</p>
-        </div>
-        <div class="row__mark" aria-hidden="true"></div>
-      </article>
-    </section>
-
-    <section class="section" id="telegram">
-      <div class="section__head">
-        <span class="section__num">04</span>
-        <h2 class="section__name">Телеграм</h2>
-      </div>
-
-      <article class="row row--link">
-        <div class="row__meta">
-          <span class="rubric">канал</span>
-        </div>
-        <div>
-          <h3><a href="https://t.me/gregor_zamza" target="_blank" rel="noopener noreferrer">«Злой мальчик»</a></h3>
-          <p class="row__note">Телеграм-канал</p>
-        </div>
-        <div class="row__mark" aria-hidden="true">↗</div>
-      </article>
-    </section>
-
-    <section class="section" id="kontakty">
-      <div class="section__head">
-        <span class="section__num">05</span>
-        <h2 class="section__name">Контакты</h2>
-      </div>
-
-      <article class="row">
-        <div class="row__meta">
-          <span class="rubric">почта</span>
-        </div>
-        <div>
-          <p class="mail"><a href="mailto:valeriy.pecheykin@gmail.com">valeriy.pecheykin@gmail.com</a></p>
-        </div>
-        <div class="row__mark" aria-hidden="true"></div>
-      </article>
-
-      <div class="stamp">
-        <div class="paw" aria-hidden="true">
-        <div class="toes">
-          <span class="toe toe-1"><i></i></span>
-          <span class="toe toe-2"><i></i></span>
-          <span class="toe toe-3"><i></i></span>
-          <span class="toe toe-4"><i></i></span>
-        </div>
-          <div class="pad"></div>
-        </div>
-      </div>
-    </section>
-
-  </div>
+<!-- АФИША -->
+<section class="poster">
+<div>
+<h1 class="name">Валерий<br/>Печейкин</h1>
+<ul class="roles">
+<li class="">писатель</li>
+<li class="">драматург</li>
+<li class="">лектор</li>
+</ul>
+</div>
+<div class="poster__cat">
+<div aria-hidden="true" class="cat">
+<span class="cat-ear"></span>
+<span class="cat-head"></span>
+<span class="cat-whisker w1"></span>
+<span class="cat-whisker w2"></span>
+<span class="cat-whisker w3"></span>
+<span class="eye">
+<span class="iris">
+<span class="pupil"></span>
+</span>
+</span>
+</div>
+</div>
+<div class="poster__foot">
+<p class="about">Пишу тексты, читаю лекции о музыке и кошках <span class="cat-face">(^ↀᴥↀ^)</span>, выступаю на конференциях и телевидении. Этот сайт сделал сам.</p>
+<div class="credits micro">
+<span class="">кино · театр · музыка · искусство</span>
+</div>
+</div>
+</section>
+<!-- АРХИВ -->
+<div class="archive">
+<section class="section" id="novoe">
+<div class="section__head">
+<h2 class="section__name">
+<svg fill="none" height="12" viewbox="0 0 12 12" width="12" xmlns="http://www.w3.org/2000/svg">
+<circle cx="6" cy="6" fill="var(--accent)" r="4"></circle>
+</svg>
+  Новое
+</h2>
+</div>
+<article class="news">
+<figure>
+<img alt="Бенгальское издание пьесы «Публичное чтение»" decoding="async" height="650" loading="eager" src="https://pecheyk.in/images/news/public-reading-bengali-book.jpg" width="850"/>
+<figcaption>Bhasha Samsad, Калькутта. Перевод: д-р Смита Сенгупта</figcaption>
+</figure>
+<div>
+<span class="flag">новое</span>
+<h3 class="">«Публичное чтение» вышло на бенгальском языке</h3>
+<p class="">В Калькутте опубликован бенгальский перевод моей пьесы «Публичное чтение». Книгу выпустило издательство Bhasha Samsad, перевод выполнила доктор Смита Сенгупта.</p>
+<p class="">Пьеса была написана в 2013 году для режиссёра Дениса Азарова и поставлена им в Библиотеке СТД в рамках проекта «Открытая сцена».</p>
+<p class="">В рецензии журнала East India Story пьеса названа произведением «о кризисе и будущем библиотек», которое показывает, как вернуть жизнь в опустевшие читальные залы.</p>
+<a class="more" href="https://eastindiastory.com/%E0%A6%9C%E0%A6%A8%E0%A6%B8%E0%A6%AE%E0%A6%95%E0%A7%8D%E0%A6%B7%E0%A7%87-%E0%A6%AA%E0%A6%BE%E0%A6%A0-%E0%A6%AD%E0%A7%8D%E0%A6%AF%E0%A6%BE%E0%A6%B2%E0%A7%87%E0%A6%B0%E0%A6%BF-%E0%A6%AA%E0%A7%87/" rel="noopener noreferrer" target="_blank">Читать рецензию →</a>
+</div>
+</article>
+</section>
+<section class="section" id="raboty">
+<div class="section__head">
+<h2 class="section__name">
+<svg fill="none" height="12" viewbox="0 0 12 12" width="12" xmlns="http://www.w3.org/2000/svg">
+<rect height="8" stroke="currentColor" stroke-width="1.5" width="8" x="2" y="2"></rect>
+</svg>
+  Работы
+</h2>
+</div>
+<article class="row row--link">
+<div class="row__meta">
+<span class="rubric">подкаст</span>
+<span class="year">2023–2024</span>
+</div>
+<div>
+<h3 class=""><a class="" href="https://listay-vpravo.mave.digital/" rel="noopener noreferrer" target="_blank">«Листай вправо»</a></h3>
+<p class="row__note">Подкаст, в котором я рассказывал о нон-фикшн литературе.</p>
+</div>
+<div aria-hidden="true" class="row__mark">↗</div>
+</article>
+<article class="row row--link key-work">
+<div class="row__meta">
+<span class="rubric">театр</span>
+<span class="year">2023</span>
+</div>
+<div>
+<h3 class=""><a class="" href="https://bolshoi.ru/performances/ballet/the-queen-of-spades" rel="noopener noreferrer" target="_blank">«Пиковая дама»</a></h3>
+<p class="row__note">Либретто. Большой театр</p>
+</div>
+<div aria-hidden="true" class="row__mark">↗</div>
+</article>
+<article class="row">
+<div class="row__meta">
+<span class="rubric">книга</span>
+<span class="year">2023</span>
+</div>
+<div>
+<h3 class="">«Пушкин, помоги!»</h3>
+<p class="row__note">Книга о русской литературе от Пушкина до Кафки.</p>
+<p class="row__refs">
+<a class="" href="https://ozon.ru/t/Asi9Dmd" rel="noopener noreferrer" target="_blank">Ozon</a>
+<a class="" href="https://www.wildberries.ru/catalog/157368619/detail.aspx" rel="noopener noreferrer" target="_blank">Wildberries</a>
+</p>
+</div>
+<div aria-hidden="true" class="row__mark"></div>
+</article>
+<article class="row row--link">
+<div class="row__meta">
+<span class="rubric">текст</span>
+<span class="year">2021</span>
+</div>
+<div>
+<h3 class=""><a class="" href="https://esquire.ru/letters/275793-rabota-fedota-5-korotkih-rasskazov-valeriya-pecheykina-geroyami-kotoryh-stali-kak-proizvoditeli-tak-i-sredstva-proizvodstva/" rel="noopener noreferrer" target="_blank">«Работа Федота»</a></h3>
+<p class="row__note">Пять коротких рассказов. Esquire</p>
+</div>
+<div aria-hidden="true" class="row__mark">↗</div>
+</article>
+<article class="row row--link">
+<div class="row__meta">
+<span class="rubric">текст</span>
+<span class="year">2020</span>
+</div>
+<div>
+<h3 class=""><a class="" href="https://www.pravilamag.ru/letters/193703-seriya-korotkih-rasskazov-valeriya-pecheykina-rosgosvirus-v-kotoryh-mir-posle-pandemii-stanovitsya-voploshcheniem-byurokratii/" rel="noopener noreferrer" target="_blank">«Росгосвирус»</a></h3>
+<p class="row__note">Серия рассказов о мире после пандемии. «Правила жизни»</p>
+</div>
+<div aria-hidden="true" class="row__mark">↗</div>
+</article>
+<article class="row row--link">
+<div class="row__meta">
+<span class="rubric">текст</span>
+<span class="year">2019</span>
+</div>
+<div>
+<h3 class=""><a class="" href="https://moskvichmag.ru/tag/%D0%B2%D0%B0%D0%BB%D0%B5%D1%80%D0%B8%D0%B9-%D0%BF%D0%B5%D1%87%D0%B5%D0%B9%D0%BA%D0%B8%D0%BD/" rel="noopener noreferrer" target="_blank">Москвич Mag</a></h3>
+<p class="row__note">Эссе и колонки</p>
+</div>
+<div aria-hidden="true" class="row__mark">↗</div>
+</article>
+<article class="row row--link key-work">
+<div class="row__meta">
+<span class="rubric">кино</span>
+<span class="year">2018</span>
+</div>
+<div>
+<h3 class=""><a class="" href="https://www.kinopoisk.ru/film/1042556/" rel="noopener noreferrer" target="_blank">«Кислота»</a></h3>
+<p class="row__note">Сценарий</p>
+</div>
+<div aria-hidden="true" class="row__mark">↗</div>
+</article>
+<article class="row row--link">
+<div class="row__meta">
+<span class="rubric">театр</span>
+<span class="year">2017</span>
+</div>
+<div>
+<h3 class=""><a class="" href="https://praktikatheatre.ru/events/beethoven" rel="noopener noreferrer" target="_blank">«Бетховен»</a></h3>
+<p class="row__note">Пьеса. Театр «Практика»</p>
+</div>
+<div aria-hidden="true" class="row__mark">↗</div>
+</article>
+<article class="row row--link">
+<div class="row__meta">
+<span class="rubric">театр</span>
+<span class="year">2014</span>
+</div>
+<div>
+<h3 class=""><a class="" href="https://teatrgogolya.ru/performances/devyat" rel="noopener noreferrer" target="_blank">«Девять»</a></h3>
+<p class="row__note">Пьеса. Театр Гоголя</p>
+</div>
+<div aria-hidden="true" class="row__mark">↗</div>
+</article>
+<article class="row row--link">
+<div class="row__meta">
+<span class="rubric">кино</span>
+<span class="year">2012</span>
+</div>
+<div>
+<h3 class=""><a class="" href="https://www.kinopoisk.ru/film/661124/" rel="noopener noreferrer" target="_blank">«Дирижёр»</a></h3>
+<p class="row__note">Сценарий</p>
+</div>
+<div aria-hidden="true" class="row__mark">↗</div>
+</article>
+</section>
+<section class="section" id="lekcii">
+<div class="section__head">
+<h2 class="section__name">
+<svg fill="none" height="14" viewbox="0 0 14 14" width="14" xmlns="http://www.w3.org/2000/svg">
+<circle cx="7" cy="7" r="5" stroke="currentColor" stroke-width="1"></circle>
+<circle cx="7" cy="7" fill="currentColor" r="1.5"></circle>
+</svg>
+  Лекции
+</h2>
+</div>
+<article class="row">
+<div class="row__meta">
+<span class="rubric">лекции</span>
+<span class="year">цикл</span>
+</div>
+<div>
+<h3 class="">О конструктивистах и котах</h3>
+<p class="row__note">Центр «Зотов»</p>
+<p class="programme">«Красный смех» · «Музыка машин: слушай и работай» · «Маяковский и материя» · «Как Пушкин стал салатом» · «С хлебом (не) играют» · «Смешная любовь»</p>
+</div>
+<div aria-hidden="true" class="row__mark"></div>
+</article>
+<article class="row">
+<div class="row__meta">
+<span class="rubric">лекции</span>
+<span class="year">цикл</span>
+</div>
+<div>
+<h3 class="">О музыке и мыслителях</h3>
+<p class="row__note">«Рабочий и Колхозница»</p>
+<p class="programme">«Ницше» · «Кафка» · «Бетховен» · «Малер» · «Шостакович» · «Шнитке» · «Адамс, Мартынов, Гонзалес»</p>
+</div>
+<div aria-hidden="true" class="row__mark"></div>
+</article>
+</section>
+<section class="section" id="telegram">
+<div class="section__head">
+<h2 class="section__name">
+<svg fill="none" height="14" viewbox="0 0 14 14" width="14" xmlns="http://www.w3.org/2000/svg">
+<path d="M1 7L13 1L7 13L6 8L1 7Z" stroke="currentColor" stroke-linejoin="round" stroke-width="1"></path>
+</svg>
+  Телеграм
+</h2>
+</div>
+<article class="row row--link">
+<div class="row__meta">
+<span class="rubric">канал</span>
+</div>
+<div>
+<h3 class=""><a class="" href="https://t.me/gregor_zamza" rel="noopener noreferrer" target="_blank">«Злой мальчик»</a></h3>
+<p class="row__note">Телеграм-канал</p>
+</div>
+<div aria-hidden="true" class="row__mark">↗</div>
+</article>
+</section>
+<section class="section" id="kontakty">
+<div class="section__head">
+<h2 class="section__name">
+<svg fill="none" height="14" viewbox="0 0 14 14" width="14" xmlns="http://www.w3.org/2000/svg">
+<rect height="8" stroke="currentColor" stroke-width="1" width="12" x="1" y="3"></rect>
+<path d="M1 3L7 7L13 3" stroke="currentColor" stroke-width="1"></path>
+</svg>
+  Контакты
+</h2>
+</div>
+<article class="row">
+<div class="row__meta">
+<span class="rubric">почта</span>
+</div>
+<div>
+<p class="mail"><a class="" href="mailto:valeriy.pecheykin@gmail.com">valeriy.pecheykin@gmail.com</a></p>
+</div>
+<div aria-hidden="true" class="row__mark"></div>
+</article>
+<div class="stamp">
+<div aria-hidden="true" class="paw">
+<div class="toes">
+<span class="toe toe-1"><i></i></span>
+<span class="toe toe-2"><i></i></span>
+<span class="toe toe-3"><i></i></span>
+<span class="toe toe-4"><i></i></span>
+</div>
+<div class="pad"></div>
+</div>
+</div>
+</section>
+</div>
 </main>
-
 <footer class="band band--bottom micro">
-  <span>Валерий Печейкин · pecheyk.in</span>
-  <span><a href="#top">Наверх ↑</a></span>
+<span class="">Валерий Печейкин · pecheyk.in</span>
+<span class=""><a class="" href="#top">Наверх ↑</a></span>
 </footer>
-
 <script>
 /* Зрачок кота медленно смотрит на курсор. Только мышь, только без reduce-motion. */
 (function(){
@@ -975,7 +1010,6 @@ html{scroll-behavior:smooth}
   }, {passive:true});
 })();
 </script>
-
 <script type="application/ld+json">
 {
   "@context":"https://schema.org",
@@ -988,6 +1022,32 @@ html{scroll-behavior:smooth}
   "sameAs":["https://t.me/gregor_zamza"]
 }
 </script>
+<script>
+(function() {
+  const cat = document.querySelector('.cat');
+  if (!cat || window.matchMedia('(prefers-reduced-motion:reduce)').matches) return;
 
-</body>
-</html>
+  let lastScrollY = window.scrollY;
+  let ticking = false;
+
+  function updateCatPosition(scrollPos) {
+    const maxShift = 5; // px (very subtle vertical movement on scroll)
+    const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const scrollFraction = scrollPos / scrollHeight;
+    const shift = scrollFraction * maxShift;
+    
+    cat.style.transform = `translateY(${shift}px)`;
+  }
+
+  window.addEventListener('scroll', function() {
+    lastScrollY = window.scrollY;
+    if (!ticking) {
+      window.requestAnimationFrame(function() {
+        updateCatPosition(lastScrollY);
+        ticking = false;
+      });
+      ticking = true;
+    }
+  }, { passive: true });
+})();
+</script></body></html>
