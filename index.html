@@ -984,30 +984,62 @@ html{scroll-behavior:smooth}
 <span class=""><a class="" href="#top">Наверх ↑</a></span>
 </footer>
 <script>
-/* Зрачок кота медленно смотрит на курсор. Только мышь, только без reduce-motion. */
+/* Глаз кота: курсор на компьютере + движение пальца на мобильных устройствах. */
 (function(){
   var iris = document.querySelector('.iris');
   var pupil = document.querySelector('.pupil');
   if(!iris || !pupil) return;
-  if(!window.matchMedia('(pointer:fine)').matches) return;
   if(window.matchMedia('(prefers-reduced-motion:reduce)').matches) return;
 
   var raf = null;
-  window.addEventListener('pointermove', function(e){
-    if(raf) return;
+
+  function movePupil(clientX, clientY, strength){
+    var r = iris.getBoundingClientRect();
+    if(!r.width) return;
+
+    var dx = (clientX - (r.left + r.width/2)) / r.width;
+    var dy = (clientY - (r.top + r.height/2)) / r.height;
+    var k = Math.min(1, Math.hypot(dx, dy) / 1.6);
+    var a = Math.atan2(dy, dx);
+    var lim = r.width * strength;
+
+    pupil.style.setProperty('--px', (Math.cos(a) * lim * k).toFixed(1) + 'px');
+    pupil.style.setProperty('--py', (Math.sin(a) * lim * k).toFixed(1) + 'px');
+  }
+
+  function resetPupil(){
+    pupil.style.setProperty('--px', '0px');
+    pupil.style.setProperty('--py', '0px');
+  }
+
+  /* Desktop: сохраняем существующее слежение за курсором. */
+  if(window.matchMedia('(pointer:fine)').matches){
+    window.addEventListener('pointermove', function(e){
+      if(raf) return;
+      raf = requestAnimationFrame(function(){
+        raf = null;
+        movePupil(e.clientX, e.clientY, 0.15);
+      });
+    }, {passive:true});
+  }
+
+  /* Mobile: во время свайпа зрачок мягко следует за пальцем. */
+  window.addEventListener('touchmove', function(e){
+    if(!e.touches.length || raf) return;
+    var touch = e.touches[0];
+
     raf = requestAnimationFrame(function(){
       raf = null;
-      var r = iris.getBoundingClientRect();
-      if(!r.width) return;
-      var dx = (e.clientX - (r.left + r.width/2)) / r.width;
-      var dy = (e.clientY - (r.top + r.height/2)) / r.height;
-      var lim = r.width * 0.15;
-      var k = Math.min(1, Math.hypot(dx, dy) / 1.6);
-      var a = Math.atan2(dy, dx);
-      pupil.style.setProperty('--px', (Math.cos(a) * lim * k).toFixed(1) + 'px');
-      pupil.style.setProperty('--py', (Math.sin(a) * lim * k).toFixed(1) + 'px');
+      movePupil(touch.clientX, touch.clientY, 0.12);
     });
   }, {passive:true});
+
+  function finishTouch(){
+    window.setTimeout(resetPupil, 180);
+  }
+
+  window.addEventListener('touchend', finishTouch, {passive:true});
+  window.addEventListener('touchcancel', finishTouch, {passive:true});
 })();
 </script>
 <script type="application/ld+json">
